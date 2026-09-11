@@ -438,6 +438,9 @@
   align-items: center;
   height: 52px;
   background: transparent;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   padding: 0 4px;
 }
 

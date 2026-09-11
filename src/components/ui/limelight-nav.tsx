@@ -132,7 +132,7 @@ export const LimelightNav = ({
   };
 
   return (
-    <nav className={`limelight-nav-bar relative inline-flex items-center h-16 rounded-lg bg-card text-foreground border px-2 ${className}`}>
+    <nav className={`limelight-nav-bar relative inline-flex items-center ${className}`}>
       {items.map(({ id, icon, label, href, onClick }, index) => {
         const isActive = activeIndex === index;
         const innerContent = (
