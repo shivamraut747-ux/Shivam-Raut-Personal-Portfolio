@@ -27,9 +27,9 @@ export function AboutPage() {
 
                 <div className="about-body" style={{ color: "#000000" }}>
                   <p style={{ color: "#000000", fontWeight: 400 }}>
-                    I enjoy using technology to solve problems and build high-performance,
-                    useful web applications. When I'm not coding or exploring new tools,
-                    you'll find me watching web series, playing CODM, or exploring nature.
+                    I enjoy using technology to solve problems and build useful web applications.
+                    When I'm not coding or exploring new tools, you'll find me watching web
+                    series, playing CODM, or exploring nature.
                   </p>
                 </div>
               </div>
