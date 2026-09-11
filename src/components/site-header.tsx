@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
 import { LimelightNav, NavItem } from "@/components/ui/limelight-nav";
+import Switch from "@/components/ui/sky-toggle";
+import { useTheme } from "@/hooks/use-theme";
 
 const navItems: NavItem[] = [
   { id: "about", label: "about", href: "/about" },
@@ -11,7 +13,11 @@ const navItems: NavItem[] = [
 ];
 
 function XLogo() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68L14.543 10.34 24 22.846h-7.406l-5.8-7.584-6.64 7.584H.472l8.598-9.83L0 1.154h7.594l5.243 6.932L18.9 1.153zm-1.29 19.52h2.039L6.486 3.21H4.298L17.61 20.673z" /></svg>;
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.901 1.153h3.68L14.543 10.34 24 22.846h-7.406l-5.8-7.584-6.64 7.584H.472l8.598-9.83L0 1.154h7.594l5.243 6.932L18.9 1.153zm-1.29 19.52h2.039L6.486 3.21H4.298L17.61 20.673z" />
+    </svg>
+  );
 }
 
 function LinkedInHeaderLogo() {
@@ -24,6 +30,7 @@ function LinkedInHeaderLogo() {
 
 export function SiteHeader({ activeItem }: { activeItem?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
   const activeIndex = navItems.findIndex((item) => item.label === activeItem);
 
   return (
@@ -35,17 +42,69 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
         <div className="desktop-nav-wrap">
           <LimelightNav
             items={navItems}
-            activeIndex={activeIndex >= 0 ? activeIndex : undefined}
+            {...(activeIndex >= 0 ? { activeIndex } : {})}
             defaultActiveIndex={activeIndex >= 0 ? activeIndex : 0}
           />
         </div>
-        <div className="social-nav">
-          <a href="https://www.linkedin.com/in/shivam-raut-9a9986376/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile" data-tooltip="LinkedIn"><LinkedInHeaderLogo /></a>
-          <a href="https://github.com/shivamraut747-ux" target="_blank" rel="noreferrer" aria-label="GitHub profile" data-tooltip="GitHub"><Github /></a>
-          <a href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6" target="_blank" rel="noreferrer" aria-label="Instagram profile" data-tooltip="Instagram"><Instagram /></a>
-          <a href="https://x.com/shivamraut92" target="_blank" rel="noreferrer" aria-label="X profile" data-tooltip="X"><XLogo /></a>
+        <div className="header-controls">
+          <div
+            className="theme-toggle-header"
+            title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}
+          >
+            <Switch checked={isDark} onCheckedChange={toggleTheme} size={11.5} />
+          </div>
+          <div className="social-nav">
+            <a
+              href="https://www.linkedin.com/in/shivam-raut-9a9986376/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn profile"
+              data-tooltip="LinkedIn"
+            >
+              <LinkedInHeaderLogo />
+            </a>
+            <a
+              href="https://github.com/shivamraut747-ux"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub profile"
+              data-tooltip="GitHub"
+            >
+              <Github />
+            </a>
+            <a
+              href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram profile"
+              data-tooltip="Instagram"
+            >
+              <Instagram />
+            </a>
+            <a
+              href="https://x.com/shivamraut92"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="X profile"
+              data-tooltip="X"
+            >
+              <XLogo />
+            </a>
+          </div>
         </div>
-        <button className="menu-trigger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button>
+        <div className="mobile-header-right">
+          <div className="mobile-theme-toggle" title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}>
+            <Switch checked={isDark} onCheckedChange={toggleTheme} size={10} />
+          </div>
+          <button
+            className="menu-trigger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
       {menuOpen && (
         <nav className="mobile-nav">

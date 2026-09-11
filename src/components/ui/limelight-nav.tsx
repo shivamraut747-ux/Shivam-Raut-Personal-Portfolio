@@ -40,7 +40,7 @@ const defaultNavItems: NavItem[] = [
 export type LimelightNavProps = {
   items?: NavItem[];
   defaultActiveIndex?: number;
-  activeIndex?: number;
+  activeIndex?: number | undefined;
   onTabChange?: (index: number) => void;
   className?: string;
   limelightClassName?: string;
@@ -114,6 +114,7 @@ export const LimelightNav = ({
       const timer = setTimeout(() => setIsReady(true), 50);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [activeIndex, isReady, items]);
 
   useEffect(() => {
@@ -136,13 +137,15 @@ export const LimelightNav = ({
     <nav className={`limelight-nav-bar relative inline-flex items-center ${className}`}>
       {items.map(({ id, icon, label, href, onClick }, index) => {
         const isActive = activeIndex === index;
+        const iconProps = icon && React.isValidElement(icon) ? (icon.props as { className?: string }) : null;
         const innerContent = (
           <>
             {icon &&
-              cloneElement(icon, {
+              React.isValidElement(icon) &&
+              cloneElement(icon as React.ReactElement<{ className?: string }>, {
                 className: `w-6 h-6 transition-opacity duration-100 ease-in-out ${
                   isActive ? 'opacity-100' : 'opacity-40'
-                } ${icon.props.className || ''} ${iconClassName}`,
+                } ${iconProps?.className || ''} ${iconClassName}`,
               })}
             {label && (
               <span className={`limelight-label ${isActive ? 'active opacity-100' : 'opacity-65'}`}>

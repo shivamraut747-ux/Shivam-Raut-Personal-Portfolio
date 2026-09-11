@@ -25,8 +25,8 @@ export function AboutPage() {
                   I'm Shivam Raut, a Full-Stack Web Developer based in Maharashtra, India.
                 </p>
 
-                <div className="about-body" style={{ color: "#000000" }}>
-                  <p style={{ color: "#000000", fontWeight: 400 }}>
+                <div className="about-body">
+                  <p>
                     I enjoy using technology to solve problems and build useful web applications.
                     When I'm not coding or exploring new tools, you'll find me watching web
                     series, playing CODM, or exploring nature.

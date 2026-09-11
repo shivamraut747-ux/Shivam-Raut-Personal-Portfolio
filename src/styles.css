@@ -543,3 +543,188 @@
   .contact-title { font-size: 54px; }
 }
 
+/* Header Controls & Sky Toggle */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+}
+
+.theme-toggle-header {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-header-right {
+  display: none;
+}
+
+.mobile-theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .header-controls {
+    display: none;
+  }
+  .mobile-header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+/* Global Theme Transitions */
+body,
+.about-page,
+.skills-page,
+.contact-page,
+.about-main,
+.skills-main,
+.contact-main,
+.about-title,
+.skills-title,
+.contact-title,
+.about-intro,
+.skills-intro,
+.contact-intro,
+.about-body,
+.about-body p,
+.about-photo-card,
+.skill-card,
+.skill-label,
+.form-card,
+.form-section-title,
+.form-field label,
+.form-field input,
+.form-field textarea,
+.contact-submit-btn,
+.dannaway-footer {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Dark Mode Theme Rules */
+html.dark,
+.dark {
+  --paper: #0e1015;
+  --text: #f1f5f9;
+  --line: #262933;
+}
+
+.dark body {
+  background-color: #0e1015;
+  color: #f1f5f9;
+}
+
+.dark .about-page,
+.dark .skills-page,
+.dark .contact-page,
+.dark .about-main,
+.dark .skills-main,
+.dark .contact-main {
+  background-color: #0e1015 !important;
+}
+
+.dark .about-title,
+.dark .skills-title,
+.dark .contact-title {
+  color: #ffffff !important;
+}
+
+.dark .about-intro,
+.dark .skills-intro,
+.dark .contact-intro {
+  color: #cbd5e1 !important;
+}
+
+.dark .about-body,
+.dark .about-body p {
+  color: #94a3b8 !important;
+}
+
+.dark .about-photo-card {
+  background: #161820 !important;
+  border-color: #272a36 !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+.dark .skill-card {
+  background: #161922 !important;
+  border-color: #262a37 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark .skill-card:hover {
+  border-color: #3b4255 !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.dark .skill-label {
+  color: #e2e8f0 !important;
+}
+
+.dark .form-card {
+  background: #161922 !important;
+  border-color: #262a37 !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .form-section-title {
+  color: #ffffff !important;
+}
+
+.dark .form-field label {
+  color: #cbd5e1 !important;
+}
+
+.dark .form-field input,
+.dark .form-field textarea {
+  background: #0f1117 !important;
+  border-color: #2b3040 !important;
+  color: #ffffff !important;
+}
+
+.dark .form-field input:focus,
+.dark .form-field textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+}
+
+.dark .contact-submit-btn {
+  background: #ffffff !important;
+  color: #0e1015 !important;
+}
+
+.dark .contact-submit-btn:hover {
+  background: #e2e8f0 !important;
+}
+
+.dark .social-disc-link .disc-label {
+  color: #e2e8f0 !important;
+}
+
+.dark .social-disc-link.github .disc-icon {
+  border: 1px solid #3b4252;
+}
+
+.dark .social-disc-link.x-brand .disc-icon {
+  border: 1px solid #3b4252;
+}
+
+.dark .dannaway-footer {
+  background: #090a0d !important;
+  border-top: 1px solid #1c1f28 !important;
+}
+
+.dark .dannaway-footer a {
+  color: #94a3b8;
+}
+
+.dark .dannaway-footer a:hover {
+  color: #ffffff;
+}
+
+
