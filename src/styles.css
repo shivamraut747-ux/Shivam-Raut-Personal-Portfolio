@@ -424,7 +424,81 @@
 .mobile-nav a { color:#fff; }
 .mobile-nav a.active { color:#818181; }
 
+/* Limelight Navigation in Header */
+.desktop-nav-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 56px;
+}
+
+.limelight-nav-bar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  background: transparent;
+  padding: 0 4px;
+}
+
+.limelight-item {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 24px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  color: #ffffff;
+  transition: color 0.2s ease;
+}
+
+.limelight-label {
+  color: #ffffff;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.7;
+}
+
+.limelight-item:hover .limelight-label,
+.limelight-item.active .limelight-label {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.limelight-beam-wrapper {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 44px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: 0 0 12px #ffffff, 0 0 24px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+.limelight-beam-wrapper.ready {
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.limelight-spotlight {
+  position: absolute;
+  left: -40%;
+  top: 4px;
+  width: 180%;
+  height: 48px;
+  clip-path: polygon(10% 100%, 30% 0, 70% 0, 90% 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.05) 60%, transparent 100%);
+  pointer-events: none;
+}
+
 @media (max-width: 900px) {
+  .desktop-nav-wrap { display: none; }
   .about-main,
   .skills-main,
   .contact-main { padding: 50px 20px 40px; }
