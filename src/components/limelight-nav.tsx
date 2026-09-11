@@ -1,5 +1,5 @@
-import React, { useState, useRef, useLayoutEffect, cloneElement } from 'react';
-import { Link } from '@tanstack/react-router';
+import React, { useState, useRef, useEffect, cloneElement } from 'react';
+import { Link, useRouterState } from '@tanstack/react-router';
 
 export type NavItem = {
   id: string | number;
@@ -33,26 +33,61 @@ export const LimelightNav = ({
   iconContainerClassName = '',
   iconClassName = '',
 }: LimelightNavProps) => {
-  const [internalActiveIndex, setInternalActiveIndex] = useState(defaultActiveIndex);
-  const activeIndex = controlledActiveIndex !== undefined ? controlledActiveIndex : internalActiveIndex;
+  // Read current pathname from TanStack Router to ensure accurate active detection everywhere
+  const routerState = useRouterState();
+  const currentPath = routerState?.location?.pathname ?? '';
+
+  const routeActiveIndex = items.findIndex((item) => {
+    if (!item.href) return false;
+    if (item.href === '/') return currentPath === '/';
+    return currentPath.startsWith(item.href);
+  });
+
+  const computedActiveIndex =
+    controlledActiveIndex !== undefined && controlledActiveIndex >= 0
+      ? controlledActiveIndex
+      : routeActiveIndex >= 0
+      ? routeActiveIndex
+      : defaultActiveIndex;
+
+  const [activeIndex, setActiveIndex] = useState(computedActiveIndex);
   const [isReady, setIsReady] = useState(false);
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const limelightRef = useRef<HTMLDivElement | null>(null);
 
-  useLayoutEffect(() => {
+  // Sync state if active index changes from route or prop
+  useEffect(() => {
+    if (computedActiveIndex >= 0) {
+      setActiveIndex(computedActiveIndex);
+    }
+  }, [computedActiveIndex]);
+
+  useEffect(() => {
     if (items.length === 0) return;
 
-    const limelight = limelightRef.current;
-    const activeItem = navItemRefs.current[activeIndex];
+    const updatePosition = () => {
+      const limelight = limelightRef.current;
+      const activeItem = navItemRefs.current[activeIndex];
 
-    if (limelight && activeItem) {
-      const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
-      limelight.style.left = String(newLeft) + 'px';
-
-      if (!isReady) {
-        setTimeout(() => setIsReady(true), 50);
+      if (limelight && activeItem) {
+        const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
+        limelight.style.left = String(newLeft) + 'px';
+        if (!isReady) {
+          setIsReady(true);
+        }
       }
-    }
+    };
+
+    updatePosition();
+    const frameId = requestAnimationFrame(updatePosition);
+    const timer = setTimeout(updatePosition, 60);
+
+    window.addEventListener('resize', updatePosition);
+    return () => {
+      cancelAnimationFrame(frameId);
+      clearTimeout(timer);
+      window.removeEventListener('resize', updatePosition);
+    };
   }, [activeIndex, isReady, items]);
 
   if (items.length === 0) {
@@ -60,7 +95,7 @@ export const LimelightNav = ({
   }
 
   const handleItemClick = (index: number, itemOnClick?: () => void) => {
-    setInternalActiveIndex(index);
+    setActiveIndex(index);
     onTabChange?.(index);
     itemOnClick?.();
   };
