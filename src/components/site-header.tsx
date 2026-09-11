@@ -13,13 +13,21 @@ function XLogo() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68L14.543 10.34 24 22.846h-7.406l-5.8-7.584-6.64 7.584H.472l8.598-9.83L0 1.154h7.594l5.243 6.932L18.9 1.153zm-1.29 19.52h2.039L6.486 3.21H4.298L17.61 20.673z" /></svg>;
 }
 
+function LinkedInHeaderLogo() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+    </svg>
+  );
+}
+
 export function SiteHeader({ activeItem }: { activeItem?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   return <header className="header"><div className="header-content">
     <Link to="/" className="brand-mark" aria-label="Shivam Raut home"><img className="brand-logo" src={shivamLogo} alt="" /></Link>
     <nav className="desktop-nav" aria-label="Primary navigation">{navItems.map((item) => <Link key={item.label} to={item.href} className={activeItem === item.label ? "active" : ""}>{item.label}</Link>)}</nav>
     <div className="social-nav">
-      <a href="https://www.linkedin.com/in/shivam-raut-9a9986376/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile" data-tooltip="LinkedIn"><Linkedin /></a>
+      <a href="https://www.linkedin.com/in/shivam-raut-9a9986376/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile" data-tooltip="LinkedIn"><LinkedInHeaderLogo /></a>
       <a href="https://github.com/shivamraut747-ux" target="_blank" rel="noreferrer" aria-label="GitHub profile" data-tooltip="GitHub"><Github /></a>
       <a href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6" target="_blank" rel="noreferrer" aria-label="Instagram profile" data-tooltip="Instagram"><Instagram /></a>
       <a href="https://x.com/shivamraut92" target="_blank" rel="noreferrer" aria-label="X profile" data-tooltip="X"><XLogo /></a>
