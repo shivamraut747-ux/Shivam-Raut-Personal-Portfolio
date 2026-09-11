@@ -78,7 +78,9 @@ export const LimelightNav = ({
         setLimelightStyle({
           left: String(left) + "px",
           opacity: 1,
-          transition: animate ? "left 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease" : "none",
+          transition: animate
+            ? "left 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease"
+            : "none",
         });
         if (!hasAnimated) {
           // Enable smooth animation only for subsequent tab clicks or route switches
