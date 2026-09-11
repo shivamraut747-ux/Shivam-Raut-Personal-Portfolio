@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export const Route = createFileRoute("/about")({ component: AboutPage });
 
-function AboutPage() {
+export function AboutPage() {
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });

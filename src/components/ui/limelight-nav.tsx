@@ -74,6 +74,7 @@ export const LimelightNav = ({
 
   const routeActiveIndex = items.findIndex((item) => {
     if (!item.href) return false;
+    if (item.id === 'about' && (currentPath === '/' || currentPath === '/about')) return true;
     if (item.href === '/') return currentPath === '/';
     return currentPath.startsWith(item.href);
   });
