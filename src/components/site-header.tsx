@@ -47,12 +47,6 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
           />
         </div>
         <div className="header-controls">
-          <div
-            className="theme-toggle-header"
-            title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}
-          >
-            <Switch checked={isDark} onCheckedChange={toggleTheme} size={11.5} />
-          </div>
           <div className="social-nav">
             <a
               href="https://www.linkedin.com/in/shivam-raut-9a9986376/"
@@ -90,6 +84,12 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
             >
               <XLogo />
             </a>
+          </div>
+          <div
+            className="theme-toggle-header"
+            title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}
+          >
+            <Switch checked={isDark} onCheckedChange={toggleTheme} size={11.5} />
           </div>
         </div>
         <div className="mobile-header-right">
