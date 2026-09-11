@@ -1,0 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/site-header";
+
+export const Route = createFileRoute("/contact")({ component: ContactPage });
+
+function ContactPage() {
+  return <div><SiteHeader activeItem="contact" /><main className="contact-page"><section className="contact-section"><p className="section-kicker">Contact</p><h1>contact.</h1><p>Get in touch with me via social media or send me an email.</p><div className="contact-socials"><a href="https://www.linkedin.com/in/shivam-raut-9a9986376/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://github.com/shivamraut747-ux" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6" target="_blank" rel="noreferrer">Instagram</a><a href="https://x.com/shivamraut92" target="_blank" rel="noreferrer">X</a></div><form className="contact-form" onSubmit={(event) => { event.preventDefault(); const data = new FormData(event.currentTarget); window.location.href = `mailto:shivamraut747@gmail.com?subject=${encodeURIComponent(String(data.get("name") ?? "Portfolio inquiry"))}&body=${encodeURIComponent(String(data.get("message") ?? ""))}`; }}><h2>Send me an email</h2><label htmlFor="contact-name">Name</label><input id="contact-name" name="name" required /><label htmlFor="contact-email">Email</label><input id="contact-email" name="email" type="email" required /><label htmlFor="contact-message">Message</label><textarea id="contact-message" name="message" rows={5} required /><button type="submit">Send email</button></form></section></main><footer>© {new Date().getFullYear()} Shivam Raut <a href="/#about">Back to top ↑</a></footer></div>;
+}
