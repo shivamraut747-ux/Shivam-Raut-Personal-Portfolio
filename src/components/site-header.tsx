@@ -46,45 +46,43 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
             defaultActiveIndex={activeIndex >= 0 ? activeIndex : 0}
           />
         </div>
-        <div className="header-controls">
-          <div className="social-nav">
-            <a
-              href="https://www.linkedin.com/in/shivam-raut-9a9986376/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn profile"
-              data-tooltip="LinkedIn"
-            >
-              <LinkedInHeaderLogo />
-            </a>
-            <a
-              href="https://github.com/shivamraut747-ux"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub profile"
-              data-tooltip="GitHub"
-            >
-              <Github />
-            </a>
-            <a
-              href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram profile"
-              data-tooltip="Instagram"
-            >
-              <Instagram />
-            </a>
-            <a
-              href="https://x.com/shivamraut92"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="X profile"
-              data-tooltip="X"
-            >
-              <XLogo />
-            </a>
-          </div>
+        <div className="social-nav">
+          <a
+            href="https://www.linkedin.com/in/shivam-raut-9a9986376/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn profile"
+            data-tooltip="LinkedIn"
+          >
+            <LinkedInHeaderLogo />
+          </a>
+          <a
+            href="https://github.com/shivamraut747-ux"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub profile"
+            data-tooltip="GitHub"
+          >
+            <Github />
+          </a>
+          <a
+            href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram profile"
+            data-tooltip="Instagram"
+          >
+            <Instagram />
+          </a>
+          <a
+            href="https://x.com/shivamraut92"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="X profile"
+            data-tooltip="X"
+          >
+            <XLogo />
+          </a>
           <div
             className="theme-toggle-header"
             title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}
