@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import React from "react";
+import { GlowCard } from "@/components/ui/glow-card";
 
 export const Route = createFileRoute("/skills")({ component: SkillsPage });
 
@@ -157,23 +158,24 @@ function TableauLogo() {
 interface SkillItem {
   name: string;
   icon: React.ReactNode;
+  glowColor?: 'blue' | 'purple' | 'green' | 'red' | 'orange';
 }
 
 /* 10 Skills: 5 Above and 5 Below */
 const skillsList: SkillItem[] = [
   // 5 Above (Row 1)
-  { name: "MySQL", icon: <MySqlLogo /> },
-  { name: "MongoDB", icon: <MongoDbLogo /> },
-  { name: "HTML", icon: <HtmlLogo /> },
-  { name: "CSS", icon: <CssLogo /> },
-  { name: "JavaScript", icon: <JavaScriptLogo /> },
+  { name: "MySQL", icon: <MySqlLogo />, glowColor: "blue" },
+  { name: "MongoDB", icon: <MongoDbLogo />, glowColor: "green" },
+  { name: "HTML", icon: <HtmlLogo />, glowColor: "orange" },
+  { name: "CSS", icon: <CssLogo />, glowColor: "blue" },
+  { name: "JavaScript", icon: <JavaScriptLogo />, glowColor: "orange" },
 
   // 5 Below (Row 2)
-  { name: "Python", icon: <PythonLogo /> },
-  { name: "SQL", icon: <SqlLogo /> },
-  { name: "Git", icon: <GitLogo /> },
-  { name: "GitHub", icon: <GitHubLogo /> },
-  { name: "Tableau", icon: <TableauLogo /> },
+  { name: "Python", icon: <PythonLogo />, glowColor: "blue" },
+  { name: "SQL", icon: <SqlLogo />, glowColor: "blue" },
+  { name: "Git", icon: <GitLogo />, glowColor: "red" },
+  { name: "GitHub", icon: <GitHubLogo />, glowColor: "purple" },
+  { name: "Tableau", icon: <TableauLogo />, glowColor: "orange" },
 ];
 
 function SkillsPage() {
@@ -199,12 +201,17 @@ function SkillsPage() {
             <section className="skills-catalog" aria-label="Skills catalog">
               <div className="skill-cards">
                 {skillsList.map((skill) => (
-                  <div className="skill-card" key={skill.name}>
+                  <GlowCard
+                    key={skill.name}
+                    customSize={true}
+                    glowColor={skill.glowColor ?? "blue"}
+                    className="skill-card"
+                  >
                     <div className="skill-icon-wrap">
                       {skill.icon}
                     </div>
                     <span className="skill-label">{skill.name}</span>
-                  </div>
+                  </GlowCard>
                 ))}
               </div>
             </section>
