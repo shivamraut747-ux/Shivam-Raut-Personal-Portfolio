@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, cloneElement } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect, cloneElement } from 'react';
 import { Link, useRouterState } from '@tanstack/react-router';
 
 export type NavItem = {
@@ -33,7 +33,6 @@ export const LimelightNav = ({
   iconContainerClassName = '',
   iconClassName = '',
 }: LimelightNavProps) => {
-  // Read current pathname from TanStack Router to ensure accurate active detection everywhere
   const routerState = useRouterState();
   const currentPath = routerState?.location?.pathname ?? '';
 
@@ -51,50 +50,63 @@ export const LimelightNav = ({
       : defaultActiveIndex;
 
   const [activeIndex, setActiveIndex] = useState(computedActiveIndex);
-  const [isReady, setIsReady] = useState(false);
+  const [limelightStyle, setLimelightStyle] = useState<React.CSSProperties>({
+    opacity: 0,
+  });
+  const [hasAnimated, setHasAnimated] = useState(false);
+
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const limelightRef = useRef<HTMLDivElement | null>(null);
 
-  // Sync state if active index changes from route or prop
+  // Synchronize active index when route changes
   useEffect(() => {
     if (computedActiveIndex >= 0) {
       setActiveIndex(computedActiveIndex);
     }
   }, [computedActiveIndex]);
 
-  useEffect(() => {
+  // Position immediately on mount with useLayoutEffect without sliding from -999px
+  useLayoutEffect(() => {
     if (items.length === 0) return;
 
-    const updatePosition = () => {
-      const limelight = limelightRef.current;
+    const calculatePosition = (animate = hasAnimated) => {
       const activeItem = navItemRefs.current[activeIndex];
+      const limelight = limelightRef.current;
 
-      if (limelight && activeItem) {
-        const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
-        limelight.style.left = String(newLeft) + 'px';
-        if (!isReady) {
-          setIsReady(true);
+      if (activeItem && limelight) {
+        const left = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
+        setLimelightStyle({
+          left: String(left) + "px",
+          opacity: 1,
+          transition: animate ? "left 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease" : "none",
+        });
+        if (!hasAnimated) {
+          // Enable smooth animation only for subsequent tab clicks or route switches
+          requestAnimationFrame(() => {
+            setHasAnimated(true);
+          });
         }
       }
     };
 
-    updatePosition();
-    const frameId = requestAnimationFrame(updatePosition);
-    const timer = setTimeout(updatePosition, 60);
+    calculatePosition();
 
-    window.addEventListener('resize', updatePosition);
+    const timer = setTimeout(() => calculatePosition(hasAnimated), 40);
+    const handleResize = () => calculatePosition(false);
+
+    window.addEventListener('resize', handleResize);
     return () => {
-      cancelAnimationFrame(frameId);
       clearTimeout(timer);
-      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('resize', handleResize);
     };
-  }, [activeIndex, isReady, items]);
+  }, [activeIndex, items]);
 
   if (items.length === 0) {
     return null;
   }
 
   const handleItemClick = (index: number, itemOnClick?: () => void) => {
+    setHasAnimated(true);
     setActiveIndex(index);
     onTabChange?.(index);
     itemOnClick?.();
@@ -108,7 +120,12 @@ export const LimelightNav = ({
           <>
             {icon &&
               cloneElement(icon, {
-                className: 'limelight-icon ' + (isActive ? 'opacity-100 ' : 'opacity-40 ') + (icon.props.className || '') + ' ' + iconClassName,
+                className:
+                  'limelight-icon ' +
+                  (isActive ? 'opacity-100 ' : 'opacity-40 ') +
+                  (icon.props.className || '') +
+                  ' ' +
+                  iconClassName,
               })}
             <span className={'limelight-label ' + (isActive ? 'active' : '')}>{label}</span>
           </>
@@ -148,8 +165,8 @@ export const LimelightNav = ({
 
       <div
         ref={limelightRef}
-        className={'limelight-beam-wrapper ' + (isReady ? 'ready ' : '') + limelightClassName}
-        style={{ left: '-999px' }}
+        className={'limelight-beam-wrapper ' + limelightClassName}
+        style={limelightStyle}
       >
         <div className='limelight-spotlight' />
       </div>

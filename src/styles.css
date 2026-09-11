@@ -482,10 +482,6 @@
   pointer-events: none;
 }
 
-.limelight-beam-wrapper.ready {
-  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .limelight-spotlight {
   position: absolute;
   left: -40%;
