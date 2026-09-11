@@ -2,7 +2,7 @@ import { Github, Instagram, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
-import { LimelightNav, NavItem } from "@/components/limelight-nav";
+import { LimelightNav, NavItem } from "@/components/ui/limelight-nav";
 
 const navItems: NavItem[] = [
   { id: "about", label: "about", href: "/about" },
