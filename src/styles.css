@@ -554,7 +554,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: clamp(40px, 4vw, 56px);
 }
 
 .mobile-header-right {
