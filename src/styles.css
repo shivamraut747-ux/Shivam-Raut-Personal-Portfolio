@@ -482,6 +482,16 @@
   pointer-events: none;
 }
 
+.limelight-beam-wrapper.init {
+  opacity: 0;
+  transition: none !important;
+}
+
+.limelight-beam-wrapper.ready {
+  opacity: 1;
+  transition: left 0.4s ease-in-out, opacity 0.15s ease-in-out;
+}
+
 .limelight-spotlight {
   position: absolute;
   left: -40%;

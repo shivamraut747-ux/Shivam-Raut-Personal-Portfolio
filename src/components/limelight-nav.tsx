@@ -50,65 +50,38 @@ export const LimelightNav = ({
       : defaultActiveIndex;
 
   const [activeIndex, setActiveIndex] = useState(computedActiveIndex);
-  const [limelightStyle, setLimelightStyle] = useState<React.CSSProperties>({
-    opacity: 0,
-  });
-  const [hasAnimated, setHasAnimated] = useState(false);
-
+  const [isReady, setIsReady] = useState(false);
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const limelightRef = useRef<HTMLDivElement | null>(null);
 
-  // Synchronize active index when route changes
+  // Sync state if active index changes from route
   useEffect(() => {
     if (computedActiveIndex >= 0) {
       setActiveIndex(computedActiveIndex);
     }
   }, [computedActiveIndex]);
 
-  // Position immediately on mount with useLayoutEffect without sliding from -999px
   useLayoutEffect(() => {
     if (items.length === 0) return;
 
-    const calculatePosition = (animate = hasAnimated) => {
-      const activeItem = navItemRefs.current[activeIndex];
-      const limelight = limelightRef.current;
+    const limelight = limelightRef.current;
+    const activeItem = navItemRefs.current[activeIndex];
 
-      if (activeItem && limelight) {
-        const left = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
-        setLimelightStyle({
-          left: String(left) + "px",
-          opacity: 1,
-          transition: animate
-            ? "left 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease"
-            : "none",
-        });
-        if (!hasAnimated) {
-          // Enable smooth animation only for subsequent tab clicks or route switches
-          requestAnimationFrame(() => {
-            setHasAnimated(true);
-          });
-        }
+    if (limelight && activeItem) {
+      const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
+      limelight.style.left = String(newLeft) + 'px';
+
+      if (!isReady) {
+        setTimeout(() => setIsReady(true), 50);
       }
-    };
-
-    calculatePosition();
-
-    const timer = setTimeout(() => calculatePosition(hasAnimated), 40);
-    const handleResize = () => calculatePosition(false);
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [activeIndex, items]);
+    }
+  }, [activeIndex, isReady, items]);
 
   if (items.length === 0) {
     return null;
   }
 
   const handleItemClick = (index: number, itemOnClick?: () => void) => {
-    setHasAnimated(true);
     setActiveIndex(index);
     onTabChange?.(index);
     itemOnClick?.();
@@ -123,7 +96,7 @@ export const LimelightNav = ({
             {icon &&
               cloneElement(icon, {
                 className:
-                  'limelight-icon ' +
+                  'limelight-icon transition-opacity duration-100 ease-in-out ' +
                   (isActive ? 'opacity-100 ' : 'opacity-40 ') +
                   (icon.props.className || '') +
                   ' ' +
@@ -167,8 +140,12 @@ export const LimelightNav = ({
 
       <div
         ref={limelightRef}
-        className={'limelight-beam-wrapper ' + limelightClassName}
-        style={limelightStyle}
+        className={
+          'limelight-beam-wrapper ' +
+          (isReady ? 'ready ' : 'init ') +
+          limelightClassName
+        }
+        style={{ left: '-999px' }}
       >
         <div className='limelight-spotlight' />
       </div>
