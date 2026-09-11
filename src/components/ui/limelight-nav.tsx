@@ -1,16 +1,44 @@
 import React, { useState, useRef, useLayoutEffect, useEffect, cloneElement } from 'react';
 import { Link, useRouterState } from '@tanstack/react-router';
 
+// --- Internal Types and Defaults ---
+
+const DefaultHomeIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+  </svg>
+);
+
+const DefaultCompassIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z" />
+  </svg>
+);
+
+const DefaultBellIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+  </svg>
+);
+
 export type NavItem = {
   id: string | number;
   icon?: React.ReactElement;
-  label: string;
-  href?: string;
+  label?: string;
   onClick?: () => void;
+  href?: string;
 };
 
-type LimelightNavProps = {
-  items: NavItem[];
+const defaultNavItems: NavItem[] = [
+  { id: 'default-home', icon: <DefaultHomeIcon />, label: 'Home' },
+  { id: 'default-explore', icon: <DefaultCompassIcon />, label: 'Explore' },
+  { id: 'default-notifications', icon: <DefaultBellIcon />, label: 'Notifications' },
+];
+
+export type LimelightNavProps = {
+  items?: NavItem[];
   defaultActiveIndex?: number;
   activeIndex?: number;
   onTabChange?: (index: number) => void;
@@ -20,11 +48,20 @@ type LimelightNavProps = {
   iconClassName?: string;
 };
 
+function useSafeRouterPath() {
+  try {
+    const routerState = useRouterState();
+    return routerState?.location?.pathname ?? '';
+  } catch {
+    return '';
+  }
+}
+
 /**
- * An adaptive-width navigation bar with a limelight effect that highlights the active item.
+ * An adaptive-width navigation bar with a "limelight" effect that highlights the active item.
  */
 export const LimelightNav = ({
-  items,
+  items = defaultNavItems,
   defaultActiveIndex = 0,
   activeIndex: controlledActiveIndex,
   onTabChange,
@@ -33,8 +70,7 @@ export const LimelightNav = ({
   iconContainerClassName = '',
   iconClassName = '',
 }: LimelightNavProps) => {
-  const routerState = useRouterState();
-  const currentPath = routerState?.location?.pathname ?? '';
+  const currentPath = useSafeRouterPath();
 
   const routeActiveIndex = items.findIndex((item) => {
     if (!item.href) return false;
@@ -54,28 +90,36 @@ export const LimelightNav = ({
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const limelightRef = useRef<HTMLDivElement | null>(null);
 
-  // Sync state if active index changes from route
   useEffect(() => {
     if (computedActiveIndex >= 0) {
       setActiveIndex(computedActiveIndex);
     }
   }, [computedActiveIndex]);
 
-  useLayoutEffect(() => {
+  const updatePosition = () => {
     if (items.length === 0) return;
-
     const limelight = limelightRef.current;
     const activeItem = navItemRefs.current[activeIndex];
 
     if (limelight && activeItem) {
       const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
-      limelight.style.left = String(newLeft) + 'px';
+      limelight.style.left = `${newLeft}px`;
+    }
+  };
 
-      if (!isReady) {
-        setTimeout(() => setIsReady(true), 50);
-      }
+  useLayoutEffect(() => {
+    updatePosition();
+    if (!isReady) {
+      const timer = setTimeout(() => setIsReady(true), 50);
+      return () => clearTimeout(timer);
     }
   }, [activeIndex, isReady, items]);
+
+  useEffect(() => {
+    const handleResize = () => updatePosition();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [activeIndex]);
 
   if (items.length === 0) {
     return null;
@@ -88,66 +132,59 @@ export const LimelightNav = ({
   };
 
   return (
-    <nav className={'limelight-nav-bar ' + className}>
+    <nav className={`limelight-nav-bar relative inline-flex items-center h-16 rounded-lg bg-card text-foreground border px-2 ${className}`}>
       {items.map(({ id, icon, label, href, onClick }, index) => {
         const isActive = activeIndex === index;
-        const content = (
+        const innerContent = (
           <>
             {icon &&
               cloneElement(icon, {
-                className:
-                  'limelight-icon transition-opacity duration-100 ease-in-out ' +
-                  (isActive ? 'opacity-100 ' : 'opacity-40 ') +
-                  (icon.props.className || '') +
-                  ' ' +
-                  iconClassName,
+                className: `w-6 h-6 transition-opacity duration-100 ease-in-out ${
+                  isActive ? 'opacity-100' : 'opacity-40'
+                } ${icon.props.className || ''} ${iconClassName}`,
               })}
-            <span className={'limelight-label ' + (isActive ? 'active' : '')}>{label}</span>
+            {label && (
+              <span className={`limelight-label ${isActive ? 'active opacity-100' : 'opacity-65'}`}>
+                {label}
+              </span>
+            )}
           </>
         );
 
+        const commonProps = {
+          ref: (el: HTMLAnchorElement | null) => {
+            navItemRefs.current[index] = el;
+          },
+          className: `limelight-item relative z-20 flex h-full cursor-pointer items-center justify-center p-5 ${
+            isActive ? 'active ' : ''
+          }${iconContainerClassName}`,
+          onClick: () => handleItemClick(index, onClick),
+          'aria-label': label,
+        };
+
         if (href) {
           return (
-            <Link
-              key={id}
-              to={href}
-              ref={(el) => {
-                navItemRefs.current[index] = el;
-              }}
-              className={'limelight-item ' + (isActive ? 'active ' : '') + iconContainerClassName}
-              onClick={() => handleItemClick(index, onClick)}
-              aria-label={label}
-            >
-              {content}
+            <Link key={id} to={href} {...commonProps}>
+              {innerContent}
             </Link>
           );
         }
 
         return (
-          <a
-            key={id}
-            ref={(el) => {
-              navItemRefs.current[index] = el;
-            }}
-            className={'limelight-item ' + (isActive ? 'active ' : '') + iconContainerClassName}
-            onClick={() => handleItemClick(index, onClick)}
-            aria-label={label}
-          >
-            {content}
+          <a key={id} {...commonProps}>
+            {innerContent}
           </a>
         );
       })}
 
       <div
         ref={limelightRef}
-        className={
-          'limelight-beam-wrapper ' +
-          (isReady ? 'ready ' : 'init ') +
-          limelightClassName
-        }
+        className={`limelight-beam-wrapper absolute top-0 z-10 w-11 h-[5px] rounded-full bg-primary shadow-[0_50px_15px_var(--primary)] ${
+          isReady ? 'ready transition-[left] duration-400 ease-in-out' : 'init'
+        } ${limelightClassName}`}
         style={{ left: '-999px' }}
       >
-        <div className='limelight-spotlight' />
+        <div className="limelight-spotlight absolute left-[-30%] top-[5px] w-[160%] h-14 [clip-path:polygon(5%_100%,25%_0,75%_0,95%_100%)] bg-gradient-to-b from-primary/30 to-transparent pointer-events-none" />
       </div>
     </nav>
   );

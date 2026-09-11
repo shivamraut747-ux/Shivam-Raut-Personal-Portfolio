@@ -492,14 +492,18 @@
   transition: left 0.4s ease-in-out, opacity 0.15s ease-in-out;
 }
 
+.duration-400 {
+  transition-duration: 400ms;
+}
+
 .limelight-spotlight {
   position: absolute;
-  left: -40%;
+  left: -30%;
   top: 4px;
-  width: 180%;
-  height: 48px;
-  clip-path: polygon(10% 100%, 30% 0, 70% 0, 90% 100%);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.05) 60%, transparent 100%);
+  width: 160%;
+  height: 52px;
+  clip-path: polygon(5% 100%, 25% 0, 75% 0, 95% 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
   pointer-events: none;
 }
 
