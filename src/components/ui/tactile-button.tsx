@@ -30,7 +30,6 @@ export type TactileButtonProps = {
   saturation?: number;
   brightness?: number;
   label?: string;
-  showAmbientBg?: boolean;
   className?: string;
   style?: CSSProperties;
   onClick?: () => void;
@@ -43,226 +42,28 @@ const TACTILE_BUTTON_DEFAULTS = {
   brightness: 1,
 } as const;
 
-// Verbatim payload originally imported via Vite `?raw` from
-// ./sources/nexus-tactile.html — inlined here since this component is
-// extracted from a shared module that hosts many unrelated effects.
 const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>N E X U S &mdash; Tactile Fluidics</title>
+    <title>Tactile Fluidics Button</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-[#02040a] text-neutral-200 h-screen w-screen overflow-hidden font-['Inter',sans-serif] selection:bg-[#06b6d4] selection:text-black relative">
+<body class="bg-transparent text-neutral-200 h-screen w-screen overflow-hidden font-['Inter',sans-serif] selection:bg-[#06b6d4] selection:text-black relative flex items-center justify-center m-0 p-0">
 
-    <!-- Ambient WebGL Background -->
-    <canvas id="bg-canvas" class="absolute inset-0 w-full h-full block pointer-events-none z-0 opacity-0" aria-hidden="true"></canvas>
-
-    <!-- Top Navigation / Logo -->
-    <header class="absolute top-0 left-0 w-full p-6 sm:p-10 z-20 flex justify-between items-center opacity-0 nav-reveal">
-        <div class="font-light text-sm tracking-[0.4em] uppercase text-neutral-400">
-            N E X U S
-        </div>
-        <div class="flex gap-4">
-            <div class="w-2 h-2 rounded-full bg-[#06b6d4] animate-pulse" style="animation-duration: 3s;"></div>
-        </div>
-    </header>
-
-    <!-- Main Content Layer -->
-    <main class="content-layer relative z-10 w-full h-full flex flex-col items-center justify-center px-4">
-        
-        <div class="tag font-mono text-xs tracking-[0.3em] uppercase text-[#06b6d4] mb-8 sm:mb-12 opacity-0 transform translate-y-4">
-            System 07 / Viscosity
-        </div>
-
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight font-normal text-neutral-100 flex flex-wrap justify-center gap-x-3 gap-y-2 max-w-4xl text-center mb-6 overflow-hidden">
-            <span class="overflow-hidden inline-block"><span class="reveal-word inline-block translate-y-full will-change-transform">Viscous</span></span>
-            <span class="overflow-hidden inline-block"><span class="reveal-word inline-block translate-y-full will-change-transform text-neutral-400">Fields.</span></span>
-            <span class="overflow-hidden inline-block"><span class="reveal-word inline-block translate-y-full will-change-transform">Reengineered.</span></span>
-        </h1>
-
-        <p class="subhead text-sm sm:text-base text-neutral-400 font-light tracking-wide max-w-md text-center mb-12 sm:mb-16 opacity-0 transform translate-y-4">
-            Delve into high-fidelity tactile feedback arrays. Engineered for continuous adaptive state manipulation.
-        </p>
-
-        <!-- CTA Component -->
-        <div class="intro opacity-0 transform translate-y-[-20px] scale-95 will-change-transform">
-            <!-- Subtle Cyan Gradient Border Wrapper -->
-            <div class="p-[1px] rounded-[19px] bg-gradient-to-b from-cyan-500/30 via-neutral-800/20 to-cyan-950/40 shadow-2xl">
-                <button class="relative flex items-center justify-center w-[230px] sm:w-[250px] h-[52px] sm:h-[56px] border-0 p-0 rounded-[18px] overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[0_0_22px_rgba(6,182,212,0.32),0_18px_36px_rgba(4,24,36,0.5),inset_0_0_0_1.5px_rgba(6,182,212,0.45),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:-translate-y-[2px] hover:shadow-[0_0_36px_rgba(6,182,212,0.6),0_24px_48px_rgba(6,182,212,0.35),inset_0_0_0_1.5px_rgba(6,182,212,0.8)] active:translate-y-[1px] active:scale-[0.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#06b6d4] focus-visible:outline-offset-[5px]" id="btn" type="button">
-                    <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block"></canvas>
-                    <span class="relative z-10 pointer-events-none font-semibold text-sm sm:text-[15.5px] tracking-[0.26em] indent-[0.26em] text-white drop-shadow-[0_0_12px_rgba(6,182,212,0.95)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center gap-2 antialiased">
-                        Resume
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-1 text-[#a5f3fc] drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                    </span>
-                </button>
-            </div>
-        </div>
-
-        <p class="note font-light text-xs text-neutral-500 tracking-wide mt-8 sm:mt-10 opacity-0 transform translate-y-4">
-            Sweep the cursor to generate turbulence, click to discharge.
-        </p>
-    </main>
+    <div class="intro flex items-center justify-center">
+        <button class="relative flex items-center justify-center w-[230px] sm:w-[250px] h-[52px] sm:h-[56px] border-0 p-0 rounded-[28px] overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[0_0_24px_rgba(6,182,212,0.38),0_18px_36px_rgba(4,24,36,0.5),inset_0_0_0_1.5px_rgba(6,182,212,0.5),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:-translate-y-[2px] hover:shadow-[0_0_38px_rgba(6,182,212,0.7),0_24px_48px_rgba(6,182,212,0.35),inset_0_0_0_1.5px_rgba(6,182,212,0.85)] active:translate-y-[1px] active:scale-[0.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#06b6d4] focus-visible:outline-offset-[5px]" id="btn" type="button">
+            <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block rounded-[28px]"></canvas>
+            <span class="relative z-10 pointer-events-none font-bold text-[19px] sm:text-[21px] tracking-[0.24em] indent-[0.24em] text-white drop-shadow-[0_0_16px_rgba(6,182,212,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center justify-center antialiased">
+                Resume
+            </span>
+        </button>
+    </div>
 
     <script>
-        // --------------------------------------------------------
-        // GSAP Animations & Parallax
-        // --------------------------------------------------------
-        document.addEventListener("DOMContentLoaded", () => {
-            const tl = gsap.timeline();
-
-            // Background Fade In
-            tl.to("#bg-canvas", { opacity: 1, duration: 2, ease: "power2.inOut" }, 0);
-            
-            // Nav Reveal
-            tl.to(".nav-reveal", { opacity: 1, duration: 1, ease: "power2.out" }, 0.5);
-
-            // Tag Reveal
-            tl.to(".tag", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.8);
-
-            // Masked Word Stagger
-            tl.to(".reveal-word", {
-                y: "0%",
-                duration: 1,
-                stagger: 0.12,
-                ease: "power4.out"
-            }, 0.9);
-
-            // Subhead Reveal
-            tl.to(".subhead", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 1.4);
-
-            // Button Drop/Bounce Effect (Replicating CSS Keyframes)
-            tl.to(".intro", {
-                y: 0,
-                scale: 1,
-                opacity: 1,
-                duration: 1.2,
-                ease: "elastic.out(1, 0.6)"
-            }, 1.6);
-
-            // Note Reveal
-            tl.to(".note", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 1.8);
-
-            // Subtle Mouse Parallax
-            document.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 15;
-                const y = (e.clientY / window.innerHeight - 0.5) * 15;
-                
-                gsap.to(".content-layer", {
-                    x: x,
-                    y: y,
-                    duration: 1.5,
-                    ease: "power2.out",
-                    overwrite: "auto"
-                });
-            });
-        });
-
-        // --------------------------------------------------------
-        // Ambient Background WebGL
-        // --------------------------------------------------------
-        (function initAmbientBG() {
-            const canvas = document.getElementById('bg-canvas');
-            const gl = canvas.getContext('webgl');
-            if (!gl) return;
-
-            const vs = 'attribute vec2 p; void main() { gl_Position = vec4(p, 0.0, 1.0); }';
-            const fs = \`
-                precision mediump float;
-                uniform vec2 u_res;
-                uniform float u_time;
-
-                float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
-                float noise(vec2 p) {
-                    vec2 i = floor(p);
-                    vec2 f = fract(p);
-                    vec2 u = f * f * (3.0 - 2.0 * f);
-                    return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-                               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
-                }
-                float fbm(vec2 p) {
-                    float v = 0.0, a = 0.5;
-                    for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.0; a *= 0.5; }
-                    return v;
-                }
-
-                void main() {
-                    vec2 uv = gl_FragCoord.xy / u_res;
-                    uv.x *= u_res.x / u_res.y;
-                    
-                    float t = u_time * 0.15;
-                    
-                    // Slow moving dark liquid
-                    vec2 q = vec2(fbm(uv + t), fbm(uv + vec2(1.0) + t));
-                    vec2 r = vec2(fbm(uv + 1.0*q + vec2(1.7, 9.2) + 0.15*t),
-                                  fbm(uv + 1.0*q + vec2(8.3, 2.8) + 0.126*t));
-                    
-                    float f = fbm(uv + r);
-                    
-                    // Core dark colors, subtle icy/cyan hints replacing fiery shades
-                    vec3 col = mix(vec3(0.01, 0.02, 0.03), vec3(0.01, 0.04, 0.07), f);
-                    col = mix(col, vec3(0.02, 0.07, 0.12), clamp(length(q) * 0.5, 0.0, 1.0));
-                    
-                    // Vignette
-                    vec2 e = gl_FragCoord.xy / u_res * (1.0 - gl_FragCoord.xy / u_res);
-                    col *= 0.5 + 0.5 * pow(e.x * e.y * 15.0, 0.3);
-                    
-                    gl_FragColor = vec4(col, 1.0);
-                }
-            \`;
-
-            function compile(type, src) {
-                const s = gl.createShader(type);
-                gl.shaderSource(s, src);
-                gl.compileShader(s);
-                return s;
-            }
-
-            const prog = gl.createProgram();
-            gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
-            gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
-            gl.linkProgram(prog);
-            gl.useProgram(prog);
-
-            const buf = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-            
-            const locP = gl.getAttribLocation(prog, 'p');
-            gl.enableVertexAttribArray(locP);
-            gl.vertexAttribPointer(locP, 2, gl.FLOAT, false, 0, 0);
-
-            const uRes = gl.getUniformLocation(prog, 'u_res');
-            const uTime = gl.getUniformLocation(prog, 'u_time');
-
-            function resize() {
-                const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                canvas.width = window.innerWidth * dpr;
-                canvas.height = window.innerHeight * dpr;
-                gl.viewport(0, 0, canvas.width, canvas.height);
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            const start = performance.now();
-            function render(now) {
-                gl.uniform2f(uRes, canvas.width, canvas.height);
-                gl.uniform1f(uTime, (now - start) / 1000);
-                gl.drawArrays(gl.TRIANGLES, 0, 3);
-                requestAnimationFrame(render);
-            }
-            requestAnimationFrame(render);
-        })();
-
-        // --------------------------------------------------------
-        // Interactive Liquid Button WebGL (from reference)
-        // --------------------------------------------------------
         (function initButtonWebGL() {
             var btn = document.getElementById('btn');
             var canvas = document.getElementById('gl');
@@ -418,12 +219,11 @@ const TACTILE_EFFECT: EffectDefinition = {
   background: "transparent",
   theme: {
     nativeMode: "dark",
-    lightBackground: "#f4f7fb",
+    lightBackground: "transparent",
     darkBackground: "transparent",
     invertBackground: false,
   },
   targets: [
-    { selector: "#bg-canvas", role: "background" },
     { selector: "#btn", role: "button" },
   ],
 };
@@ -432,20 +232,11 @@ function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));
 }
 
-function effectBackground(definition: EffectDefinition, mode: EffectMode) {
-  return definition.theme?.[`${mode}Background`] ?? definition.background;
-}
-
 function buildFocusedDocument(
   definition: EffectDefinition,
   mode: EffectMode,
-  label: string = "Resume",
-  showAmbientBg: boolean = false
+  label: string = "Resume"
 ) {
-  const background = effectBackground(definition, mode);
-  const invertBackground =
-    definition.theme?.invertBackground === true &&
-    definition.theme.nativeMode !== mode;
   let source = definition.source;
   if (label && label !== "Resume") {
     source = source.replace(">Resume<", `>${label}<`);
@@ -458,20 +249,13 @@ function buildFocusedDocument(
     definition.hiddenTargets ?? [],
   ).replace(/</g, "\\u003c");
   const modeJson = JSON.stringify(mode);
-  const backgroundFilter = invertBackground
-    ? "filter: invert(1) hue-rotate(180deg) saturate(.92) brightness(1.02) !important;"
-    : "";
-  const bgVisibility = showAmbientBg
-    ? `position: fixed !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; z-index: 0 !important; opacity: 1 !important; pointer-events: none !important; ${backgroundFilter}`
-    : "display: none !important;";
   const focusStyle = `<style data-threeui-focus>
-html, body { width: 100% !important; height: 100% !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; background: ${background} !important; color-scheme: ${mode} !important; }
-body { position: relative !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+html, body { width: 100% !important; height: 100% !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; background: transparent !important; background-color: transparent !important; color-scheme: ${mode} !important; }
+body { position: relative !important; display: flex !important; align-items: center !important; justify-content: center !important; background: transparent !important; background-color: transparent !important; }
 body > * { visibility: hidden !important; }
 body[data-threeui-ready] > [data-threeui-role] { visibility: visible !important; }
 [data-threeui-residual] { display: none !important; }
 [data-threeui-hidden] { display: none !important; }
-[data-threeui-role="background"] { ${bgVisibility} }
 [data-threeui-role="button"] { position: relative !important; z-index: 2 !important; opacity: 1 !important; flex: none !important; }
 [data-threeui-role="button"]:not([data-threeui-preserve-transform]) { transform: none !important; }
 </style>`;
@@ -532,17 +316,15 @@ function NeuformIsolatedEffect({
   saturation = TACTILE_BUTTON_DEFAULTS.saturation,
   brightness = TACTILE_BUTTON_DEFAULTS.brightness,
   label = "Resume",
-  showAmbientBg = false,
   className,
   style,
   onClick,
 }: TactileButtonProps) {
   const definition = TACTILE_EFFECT;
   const safeMode: EffectMode = mode === "light" ? "light" : "dark";
-  const background = effectBackground(definition, safeMode);
   const source = useMemo(
-    () => buildFocusedDocument(definition, safeMode, label, showAmbientBg),
-    [safeMode, label, showAmbientBg],
+    () => buildFocusedDocument(definition, safeMode, label),
+    [safeMode, label],
   );
   const safeHue = clamp(hue, -180, 180);
   const safeSaturation = clamp(saturation, 0, 2);
@@ -575,7 +357,9 @@ function NeuformIsolatedEffect({
         width: "100%",
         height: "100%",
         border: 0,
-        background,
+        outline: "none",
+        background: "transparent",
+        backgroundColor: "transparent",
         filter,
         ...style,
       }}

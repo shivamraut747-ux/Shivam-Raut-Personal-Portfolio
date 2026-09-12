@@ -440,13 +440,19 @@
   height: 60px;
   width: 256px;
   flex-shrink: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .resume-tactile-btn {
   width: 256px;
   height: 60px;
-  border: none;
-  background: transparent;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 /* Limelight Navigation in Header */

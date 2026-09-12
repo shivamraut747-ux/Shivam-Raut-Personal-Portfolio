@@ -2,8 +2,8 @@ import TactileButton from "@/components/ui/tactile-button";
 
 export default function TactileButtonDemo() {
   return (
-    <div className="h-[420px] w-full overflow-hidden">
-      <TactileButton className="h-full w-full" showAmbientBg={true} />
+    <div className="flex h-[200px] w-full items-center justify-center bg-[#111] overflow-hidden">
+      <TactileButton className="h-[60px] w-[260px]" />
     </div>
   );
 }
