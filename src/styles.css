@@ -26,14 +26,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .about-main,
 .projects-main,
 .skills-main,
 .contact-main {
-  padding: clamp(24px, 3.5vh, 48px) 32px;
+  padding: clamp(32px, 4.5vh, 52px) 32px;
   background: #ffffff;
   width: 100%;
 }
@@ -65,39 +65,23 @@
 .projects-intro,
 .skills-intro,
 .contact-intro {
-  margin: 0 0 46px;
+  margin: 0 0 42px;
   color: #000000;
   font-size: clamp(20px, 2.2vw, 24px);
   line-height: 1.38;
   font-weight: 400;
 }
 
-.about-title {
-  margin: 0 0 20px;
-  color: #111111;
-  font-size: clamp(68px, 7.5vw, 100px);
-  line-height: 0.95;
-  letter-spacing: -0.06em;
-  font-weight: 900;
-}
-
 .about-intro {
-  color: #000000;
-  font-size: clamp(22px, 2.4vw, 28px);
-  line-height: 1.35;
-  font-weight: 400;
   max-width: 540px;
-  margin: 0 0 24px;
 }
 
 .contact-intro {
   max-width: 460px;
-  color: #000000;
 }
 
 .skills-intro {
   max-width: 720px;
-  color: #000000;
 }
 
 /* About Page Split Layout */
@@ -105,7 +89,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: 32px clamp(32px, 5vw, 64px);
-  align-items: center;
+  align-items: start;
 }
 
 .about-left-col {
@@ -228,7 +212,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: 32px clamp(32px, 5vw, 64px);
-  align-items: center;
+  align-items: start;
 }
 
 .contact-left-col {
@@ -586,6 +570,7 @@
 @media (max-width: 480px) {
   .social-disc-grid { grid-template-columns: 1fr; gap: 20px; }
   .about-title,
+  .projects-title,
   .skills-title,
   .contact-title { font-size: 54px; }
 }
