@@ -38,10 +38,6 @@ npm run dev
 Live and actively maintained.
 I continue to improve the portfolio by adding new projects, refining the design, and updating my technical experience.
 
-## License
-
-This project is personal and all rights are reserved unless otherwise stated.
-
 ## Contact
 
 Have feedback or want to connect? Reach out through the contact section on [www.shivamraut.me](https://www.shivamraut.me).
