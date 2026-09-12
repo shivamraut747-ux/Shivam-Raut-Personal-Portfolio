@@ -103,7 +103,8 @@ export const LimelightNav = ({
     const activeItem = navItemRefs.current[activeIndex];
 
     if (limelight && activeItem) {
-      const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - limelight.offsetWidth / 2;
+      const beamWidth = limelight.offsetWidth || 44;
+      const newLeft = activeItem.offsetLeft + activeItem.offsetWidth / 2 - beamWidth / 2;
       limelight.style.left = `${newLeft}px`;
     }
   };
@@ -118,8 +119,10 @@ export const LimelightNav = ({
   }, [activeIndex, isReady, items]);
 
   useEffect(() => {
+    updatePosition();
     const handleResize = () => updatePosition();
     window.addEventListener('resize', handleResize);
+    document.fonts?.ready?.then?.(() => updatePosition());
     return () => window.removeEventListener('resize', handleResize);
   }, [activeIndex]);
 
@@ -134,7 +137,7 @@ export const LimelightNav = ({
   };
 
   return (
-    <nav className={`limelight-nav-bar relative inline-flex items-center ${className}`}>
+    <nav className={`limelight-nav-bar ${className}`.trim()}>
       {items.map(({ id, icon, label, href, onClick }, index) => {
         const isActive = activeIndex === index;
         const iconProps = icon && React.isValidElement(icon) ? (icon.props as { className?: string }) : null;
@@ -143,12 +146,12 @@ export const LimelightNav = ({
             {icon &&
               React.isValidElement(icon) &&
               cloneElement(icon as React.ReactElement<{ className?: string }>, {
-                className: `w-6 h-6 transition-opacity duration-100 ease-in-out ${
+                className: `limelight-icon transition-opacity duration-100 ease-in-out ${
                   isActive ? 'opacity-100' : 'opacity-40'
-                } ${iconProps?.className || ''} ${iconClassName}`,
+                } ${iconProps?.className || ''} ${iconClassName}`.trim(),
               })}
             {label && (
-              <span className={`limelight-label ${isActive ? 'active opacity-100' : 'opacity-65'}`}>
+              <span className={`limelight-label ${isActive ? 'active' : ''}`}>
                 {label}
               </span>
             )}
@@ -159,9 +162,7 @@ export const LimelightNav = ({
           ref: (el: HTMLAnchorElement | null) => {
             navItemRefs.current[index] = el;
           },
-          className: `limelight-item relative z-20 flex h-full cursor-pointer items-center justify-center p-5 ${
-            isActive ? 'active ' : ''
-          }${iconContainerClassName}`,
+          className: `limelight-item ${isActive ? 'active' : ''} ${iconContainerClassName}`.trim(),
           onClick: () => handleItemClick(index, onClick),
           'aria-label': label,
         };
@@ -183,12 +184,10 @@ export const LimelightNav = ({
 
       <div
         ref={limelightRef}
-        className={`limelight-beam-wrapper absolute top-0 z-10 w-11 h-[5px] rounded-full bg-primary shadow-[0_50px_15px_var(--primary)] ${
-          isReady ? 'ready transition-[left] duration-400 ease-in-out' : 'init'
-        } ${limelightClassName}`}
+        className={`limelight-beam-wrapper ${isReady ? 'ready' : 'init'} ${limelightClassName}`.trim()}
         style={{ left: '-999px' }}
       >
-        <div className="limelight-spotlight absolute left-[-30%] top-[5px] w-[160%] h-14 [clip-path:polygon(5%_100%,25%_0,75%_0,95%_100%)] bg-gradient-to-b from-primary/30 to-transparent pointer-events-none" />
+        <div className="limelight-spotlight" />
       </div>
     </nav>
   );
