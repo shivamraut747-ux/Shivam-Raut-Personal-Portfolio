@@ -56,6 +56,9 @@ export function AboutPage() {
                 <Link to="/about">about</Link>
               </li>
               <li>
+                <Link to="/projects">projects</Link>
+              </li>
+              <li>
                 <Link to="/skills">skills</Link>
               </li>
               <li>

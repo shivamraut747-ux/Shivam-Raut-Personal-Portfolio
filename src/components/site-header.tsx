@@ -8,6 +8,7 @@ import { useTheme } from "@/hooks/use-theme";
 
 const navItems: NavItem[] = [
   { id: "about", label: "about", href: "/about" },
+  { id: "projects", label: "projects", href: "/projects" },
   { id: "skills", label: "skills", href: "/skills" },
   { id: "contact", label: "contact", href: "/contact" },
 ];
