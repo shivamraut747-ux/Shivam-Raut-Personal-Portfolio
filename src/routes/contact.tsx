@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site-header";
 
 export const Route = createFileRoute("/contact")({ component: ContactPage });
 
@@ -58,8 +57,6 @@ function ContactPage() {
 
   return (
     <div className="site-wrapper contact-page">
-      <SiteHeader activeItem="contact" />
-
       <main className="content contact">
         <section className="contact-main">
           <div className="contact-container">

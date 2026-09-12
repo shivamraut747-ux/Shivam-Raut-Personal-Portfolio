@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import shivamPhoto from "@/assets/shivam-raut-photo.jpg";
-import { SiteHeader } from "@/components/site-header";
 
 export const Route = createFileRoute("/about")({ component: AboutPage });
 
@@ -12,8 +11,6 @@ export function AboutPage() {
 
   return (
     <div className="site-wrapper about-page">
-      <SiteHeader activeItem="about" />
-
       <main className="content about">
         <section className="about-main">
           <div className="about-container">

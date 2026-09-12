@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site-header";
 import React from "react";
 import { GlowCard } from "@/components/ui/glow-card";
 
@@ -186,8 +185,6 @@ function SkillsPage() {
 
   return (
     <div className="site-wrapper skills-page">
-      <SiteHeader activeItem="skills" />
-
       <main className="content skills">
         <section className="skills-main">
           <div className="skills-container">

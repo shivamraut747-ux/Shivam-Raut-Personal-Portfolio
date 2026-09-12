@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site-header";
 import { GlowCard } from "@/components/ui/glow-card";
 import { ExternalLink, Github, Sparkles, Layout, Database, ShoppingBag } from "lucide-react";
 
@@ -71,8 +70,6 @@ export function ProjectsPage() {
 
   return (
     <div className="site-wrapper projects-page">
-      <SiteHeader activeItem="projects" />
-
       <main className="content projects">
         <section className="projects-main">
           <div className="projects-container">

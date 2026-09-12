@@ -1,6 +1,6 @@
 import { Github, Instagram, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
 import { LimelightNav, NavItem } from "@/components/ui/limelight-nav";
 import TactileButton from "@/components/ui/tactile-button";
@@ -33,7 +33,28 @@ function LinkedInHeaderLogo() {
 export function SiteHeader({ activeItem }: { activeItem?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
-  const activeIndex = navItems.findIndex((item) => item.label === activeItem);
+
+  let currentPath = "";
+  try {
+    const routerState = useRouterState();
+    currentPath = routerState?.location?.pathname ?? "";
+  } catch {
+    currentPath = "";
+  }
+
+  const resolvedActiveItem =
+    activeItem ||
+    (currentPath === "/" || currentPath.startsWith("/about")
+      ? "about"
+      : currentPath.startsWith("/projects")
+      ? "projects"
+      : currentPath.startsWith("/skills")
+      ? "skills"
+      : currentPath.startsWith("/contact")
+      ? "contact"
+      : undefined);
+
+  const activeIndex = navItems.findIndex((item) => item.label === resolvedActiveItem);
 
   return (
     <header className="header">
@@ -120,7 +141,7 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
             <Link
               to={item.href!}
               onClick={() => setMenuOpen(false)}
-              className={activeItem === item.label ? "active" : ""}
+              className={resolvedActiveItem === item.label ? "active" : ""}
               key={item.label}
             >
               {item.label}
