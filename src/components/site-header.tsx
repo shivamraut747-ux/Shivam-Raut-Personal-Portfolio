@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
 import { LimelightNav, NavItem } from "@/components/ui/limelight-nav";
+import TactileButton from "@/components/ui/tactile-button";
 import Switch from "@/components/ui/sky-toggle";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -40,6 +41,13 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
         <Link to="/" className="brand-mark" aria-label="Shivam Raut home">
           <img className="brand-logo" src={shivamLogo} alt="" />
         </Link>
+        <div className="header-resume-cta">
+          <TactileButton
+            label="Resume"
+            className="resume-tactile-btn"
+            onClick={() => window.open("/resume.pdf", "_blank")}
+          />
+        </div>
         <div className="desktop-nav-wrap">
           <LimelightNav
             items={navItems}

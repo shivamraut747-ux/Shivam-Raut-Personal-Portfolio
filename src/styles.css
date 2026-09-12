@@ -430,11 +430,29 @@
 .mobile-nav a { color:#fff; }
 .mobile-nav a.active { color:#818181; }
 
+/* Header Resume Tactile Fluid Button */
+.header-resume-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 56px;
+  width: 236px;
+  flex-shrink: 0;
+}
+
+.resume-tactile-btn {
+  width: 236px;
+  height: 56px;
+  border: none;
+  background: transparent;
+}
+
 /* Limelight Navigation in Header */
 .desktop-nav-wrap {
   display: flex;
   align-items: center;
-  margin-left: auto;
   margin-right: 56px;
 }
 
@@ -516,7 +534,18 @@
   pointer-events: none;
 }
 
+@media (max-width: 1060px) {
+  .header-resume-cta {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 980px) {
+  .header-resume-cta { display: none; }
+}
+
 @media (max-width: 900px) {
+  .header-resume-cta { display: none; }
   .desktop-nav-wrap { display: none; }
   .about-main,
   .skills-main,
