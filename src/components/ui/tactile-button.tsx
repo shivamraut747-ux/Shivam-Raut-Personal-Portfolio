@@ -55,8 +55,8 @@ const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
 <body class="bg-transparent text-neutral-200 h-screen w-screen overflow-hidden font-['Inter',sans-serif] selection:bg-[#06b6d4] selection:text-black relative flex items-center justify-center m-0 p-0">
 
     <div class="intro flex items-center justify-center">
-        <button class="relative flex items-center justify-center w-[230px] sm:w-[250px] h-[52px] sm:h-[56px] border-0 p-0 rounded-[28px] overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[0_0_24px_rgba(6,182,212,0.38),0_18px_36px_rgba(4,24,36,0.5),inset_0_0_0_1.5px_rgba(6,182,212,0.5),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:-translate-y-[2px] hover:shadow-[0_0_38px_rgba(6,182,212,0.7),0_24px_48px_rgba(6,182,212,0.35),inset_0_0_0_1.5px_rgba(6,182,212,0.85)] active:translate-y-[1px] active:scale-[0.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#06b6d4] focus-visible:outline-offset-[5px]" id="btn" type="button">
-            <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block rounded-[28px]"></canvas>
+        <button class="relative flex items-center justify-center w-[230px] sm:w-[250px] h-[52px] sm:h-[56px] border-0 p-0 rounded-[28px] overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[inset_0_0_0_1.5px_rgba(6,182,212,0.65),inset_0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[inset_0_0_0_2px_rgba(6,182,212,0.95),inset_0_0_22px_rgba(6,182,212,0.6)] active:scale-[0.985] outline-none focus:outline-none" id="btn" type="button">
+            <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block rounded-[28px] pointer-events-none"></canvas>
             <span class="relative z-10 pointer-events-none font-bold text-[19px] sm:text-[21px] tracking-[0.24em] indent-[0.24em] text-white drop-shadow-[0_0_16px_rgba(6,182,212,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center justify-center antialiased">
                 Resume
             </span>
