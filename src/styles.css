@@ -437,14 +437,14 @@
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  height: 56px;
-  width: 236px;
+  height: 60px;
+  width: 256px;
   flex-shrink: 0;
 }
 
 .resume-tactile-btn {
-  width: 236px;
-  height: 56px;
+  width: 256px;
+  height: 60px;
   border: none;
   background: transparent;
 }

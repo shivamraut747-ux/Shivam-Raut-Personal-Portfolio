@@ -95,11 +95,11 @@ const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
         <div class="intro opacity-0 transform translate-y-[-20px] scale-95 will-change-transform">
             <!-- Subtle Cyan Gradient Border Wrapper -->
             <div class="p-[1px] rounded-[19px] bg-gradient-to-b from-cyan-500/30 via-neutral-800/20 to-cyan-950/40 shadow-2xl">
-                <button class="relative flex items-center justify-center w-[200px] sm:w-[220px] h-[48px] sm:h-[50px] border-0 p-0 rounded-[16px] overflow-hidden cursor-pointer bg-[#050b11] transition-all duration-300 ease-out shadow-[0_22px_44px_rgba(4,24,36,0.35),0_3px_9px_rgba(5,10,15,0.4),inset_0_0_0_1px_rgba(255,255,255,0.05)] hover:-translate-y-[2px] hover:shadow-[0_28px_56px_rgba(6,182,212,0.25),0_4px_11px_rgba(5,10,15,0.45)] active:translate-y-[1px] active:scale-[0.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#06b6d4] focus-visible:outline-offset-[5px]" id="btn" type="button">
+                <button class="relative flex items-center justify-center w-[230px] sm:w-[250px] h-[52px] sm:h-[56px] border-0 p-0 rounded-[18px] overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[0_0_22px_rgba(6,182,212,0.32),0_18px_36px_rgba(4,24,36,0.5),inset_0_0_0_1.5px_rgba(6,182,212,0.45),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:-translate-y-[2px] hover:shadow-[0_0_36px_rgba(6,182,212,0.6),0_24px_48px_rgba(6,182,212,0.35),inset_0_0_0_1.5px_rgba(6,182,212,0.8)] active:translate-y-[1px] active:scale-[0.985] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#06b6d4] focus-visible:outline-offset-[5px]" id="btn" type="button">
                     <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block"></canvas>
-                    <span class="relative z-10 pointer-events-none font-normal text-xs sm:text-sm tracking-[0.25em] indent-[0.25em] text-[#e0faff] drop-shadow-[0_1px_10px_rgba(0,18,25,0.85)] flex items-center gap-2">
+                    <span class="relative z-10 pointer-events-none font-semibold text-sm sm:text-[15.5px] tracking-[0.26em] indent-[0.26em] text-white drop-shadow-[0_0_12px_rgba(6,182,212,0.95)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center gap-2 antialiased">
                         Resume
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 opacity-80"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-1 text-[#a5f3fc] drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                     </span>
                 </button>
             </div>
@@ -311,13 +311,13 @@ const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
                 '  col += vec3(0.02, 0.05, 0.1) * pow(max(0.0, 1.0 - abs(uv.y - 0.88) * 6.0), 2.0);',
                 '  float inside = smoothstep(0.0, 0.012, d);',
                 '  float depth = clamp(d / max(u_level, 0.001), 0.0, 1.0);',
-                '  vec3 liq = mix(vec3(0.0, 0.9, 1.0), vec3(0.02, 0.15, 0.45), depth);',
+                '  vec3 liq = mix(vec3(0.05, 0.95, 1.0), vec3(0.03, 0.22, 0.55), depth);',
                 '  float caust = fbm(vec2(x * 4.2, (uv.y + t * 0.14) * 4.2));',
-                '  liq *= 0.8 + 0.42 * caust;',
-                '  liq += vec3(0.02, 0.25, 0.35) * pow(max(0.0, d * 3.0), 1.5) * u_slosh;',
+                '  liq *= 1.15 + 0.45 * caust;',
+                '  liq += vec3(0.04, 0.35, 0.5) * pow(max(0.0, d * 3.0), 1.5) * u_slosh;',
                 '  col = mix(col, liq, inside);',
-                '  col += vec3(0.4, 0.9, 1.0) * exp(-abs(d) * 80.0) * 0.85;',
-                '  col += vec3(0.8, 0.98, 1.0) * exp(-abs(d) * 220.0) * 0.5;',
+                '  col += vec3(0.5, 0.95, 1.0) * exp(-abs(d) * 75.0) * 1.15;',
+                '  col += vec3(0.9, 1.0, 1.0) * exp(-abs(d) * 200.0) * 0.8;',
                 '  vec2 e = uv * (1.0 - uv);',
                 '  col *= 0.55 + 0.45 * pow(e.x * e.y * 16.0, 0.22);',
                 '  gl_FragColor = vec4(col, 1.0);',
@@ -351,7 +351,7 @@ const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
             var uSlosh = gl.getUniformLocation(prog, 'u_slosh');
 
             function resize() {
-                var dpr = Math.min(window.devicePixelRatio || 1, 2);
+                var dpr = Math.max(window.devicePixelRatio || 1, 2);
                 var w = Math.max(1, Math.round(canvas.clientWidth * dpr));
                 var h = Math.max(1, Math.round(canvas.clientHeight * dpr));
                 if (canvas.width !== w || canvas.height !== h) {
