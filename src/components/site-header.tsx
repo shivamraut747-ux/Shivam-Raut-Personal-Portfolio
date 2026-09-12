@@ -45,7 +45,8 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
           <TactileButton
             label="Resume"
             className="resume-tactile-btn"
-            onClick={() => window.open("/resume.pdf", "_blank")}
+            href="/Shivam_Vilas_Raut_Resume.pdf"
+            onClick={() => window.open("/Shivam_Vilas_Raut_Resume.pdf", "_blank")}
           />
         </div>
         <div className="desktop-nav-wrap">

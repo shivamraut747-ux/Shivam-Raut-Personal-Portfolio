@@ -33,6 +33,7 @@ export type TactileButtonProps = {
   className?: string;
   style?: CSSProperties;
   onClick?: () => void;
+  href?: string;
 };
 
 const TACTILE_BUTTON_DEFAULTS = {
@@ -235,11 +236,24 @@ function clamp(value: number, minimum: number, maximum: number) {
 function buildFocusedDocument(
   definition: EffectDefinition,
   mode: EffectMode,
-  label: string = "Resume"
+  label: string = "Resume",
+  href?: string
 ) {
   let source = definition.source;
   if (label && label !== "Resume") {
     source = source.replace(">Resume<", `>${label}<`);
+  }
+  if (href) {
+    const hrefJson = JSON.stringify(href);
+    source = source.replace(
+      "try {\n                    window.parent.postMessage({ type: 'TACTILE_BUTTON_CLICK' }, '*');\n                } catch(e) {}",
+      `try {
+                    window.open(${hrefJson}, '_blank');
+                } catch(e) {}
+                try {
+                    window.parent.postMessage({ type: 'TACTILE_BUTTON_CLICK' }, '*');
+                } catch(e) {}`
+    );
   }
   const targetJson = JSON.stringify(definition.targets).replace(
     /</g,
@@ -319,12 +333,13 @@ function NeuformIsolatedEffect({
   className,
   style,
   onClick,
+  href,
 }: TactileButtonProps) {
   const definition = TACTILE_EFFECT;
   const safeMode: EffectMode = mode === "light" ? "light" : "dark";
   const source = useMemo(
-    () => buildFocusedDocument(definition, safeMode, label),
-    [safeMode, label],
+    () => buildFocusedDocument(definition, safeMode, label, href),
+    [safeMode, label, href],
   );
   const safeHue = clamp(hue, -180, 180);
   const safeSaturation = clamp(saturation, 0, 2);
@@ -350,7 +365,7 @@ function NeuformIsolatedEffect({
       data-mode={safeMode}
       title={definition.title}
       srcDoc={source}
-      sandbox="allow-scripts allow-same-origin"
+      sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
       loading="eager"
       style={{
         display: "block",
