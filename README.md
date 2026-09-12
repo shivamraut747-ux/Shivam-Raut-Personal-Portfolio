@@ -1,29 +1,47 @@
-# Welcome to your Lovable project
+# Shivam Raut — Personal Portfolio
 
-This project was built with [Lovable](https://lovable.dev).
+This is my personal portfolio website, showcasing my projects, skills, and experience in AI/ML, computer vision, and full-stack development.
 
-## Build with Lovable
+🔗 **Live site:** [www.shivamraut.me](https://www.shivamraut.me)
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Tech Stack
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Framework:** TanStack Start
+- **Language:** TypeScript
+- **UI Library:** React
+- **Styling:** Tailwind CSS
 
-## Development
+## Deployment
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+- **Domain:** Purchased from [Namecheap](https://www.namecheap.com)
+- **Hosting:** Deployed on [Vercel](https://vercel.com)
+
+## Getting Started
+
+To run this project locally, you'll need [Node.js](https://nodejs.org) and npm installed ([install via nvm](https://github.com/nvm-sh/nvm#installing-and-updating)).
 
 ```sh
+# Clone the repository
 git clone <this-repository-url>
+
+# Navigate into the project directory
 cd <repository-name>
-npm i
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
 ```
+## Project Status
 
-## Built with
+Live and actively maintained.
+I continue to improve the portfolio by adding new projects, refining the design, and updating my technical experience.
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+## License
+
+This project is personal and all rights are reserved unless otherwise stated.
+
+## Contact
+
+Have feedback or want to connect? Reach out through the contact section on [www.shivamraut.me](https://www.shivamraut.me).
