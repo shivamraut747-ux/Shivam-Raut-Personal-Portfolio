@@ -9,13 +9,13 @@ const projects: ProjectData[] = [
     description: `A real-time facial recognition attendance system built with Python, Streamlit, and OpenCV — automates attendance tracking and eliminates proxy attendance.
 
 Key features:
-- Live face recognition via webcam (face_recognition + OpenCV)
+- Live webcam face recognition (face_recognition + OpenCV)
 - Auto-logs timestamped attendance with duplicate detection
-- Admin dashboard for students, subjects, and teachers
-- Attendance reports with CSV export
-- SQLite for local data storage
+- Admin dashboard for students, subjects, and faculty
+- Attendance reports with one-click CSV export
+- SQLite database for lightweight local storage
 
-Solved real challenges like duplicate detection and reliable webcam handling across devices.`,
+Solved duplicate detection and reliable webcam handling across devices.`,
     link: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80",
     color: "#1e293b",
     tags: [
@@ -30,8 +30,15 @@ Solved real challenges like duplicate detection and reliable webcam handling acr
   },
   {
     title: "Tourist Website",
-    description:
-      "An interactive travel and tourism web application built with HTML5, CSS3, JavaScript, and MySQL. Features curated holiday destination guides, dynamic exploration previews, custom trip itineraries, and structured relational database storage for booking and destination records.",
+    description: `An interactive travel and tourism web application built with HTML5, CSS3, JavaScript, and MySQL.
+
+Key features:
+- Curated destination guides with dynamic previews
+- Interactive custom trip itineraries and planner
+- Relational database schema for bookings and destinations
+- Responsive modern layout optimized for all screens
+
+Engineered with structured SQL queries and modular JavaScript.`,
     link: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
     color: "#0f766e",
     tags: ["HTML5", "CSS3", "JavaScript", "MySQL", "Web Development"],
