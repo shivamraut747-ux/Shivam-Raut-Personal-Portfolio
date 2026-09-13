@@ -110,7 +110,7 @@ export const Card = ({
                   href={targetLink}
                   target='_blank'
                   rel='noreferrer'
-                  className='inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-white text-gray-950 font-bold text-sm transition-all duration-200 hover:bg-white/90 shadow-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
+                  className='inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-500 text-white font-bold text-sm transition-all duration-200 shadow-md shadow-green-950/30 cursor-pointer hover:scale-[1.02] active:scale-[0.98] border border-green-500/30'
                 >
                   <svg
                     viewBox='0 0 24 24'
