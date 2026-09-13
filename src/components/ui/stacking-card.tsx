@@ -67,37 +67,37 @@ export const Card = ({
           scale,
           top: `calc(-2vh + ${i * 28}px)`,
         }}
-        className='flex flex-col relative -top-[6%] md:-top-[10%] h-auto md:min-h-[500px] max-h-[92vh] w-[94%] max-w-[1040px] rounded-2xl p-5 md:p-8 origin-top shadow-2xl border border-white/15 text-white overflow-hidden backdrop-blur-md'
+        className='flex flex-col relative -top-[6%] md:-top-[10%] h-auto md:min-h-[520px] max-h-[92vh] w-[94%] max-w-[1140px] rounded-2xl p-6 md:p-9 origin-top shadow-2xl border border-white/15 text-white overflow-hidden backdrop-blur-md'
       >
-        <h2 className='text-2xl md:text-3xl text-left md:text-center font-bold tracking-tight text-white mb-2 md:mb-3'>
+        <h2 className='text-2xl md:text-4xl text-left md:text-center font-bold tracking-tight text-white mb-3 md:mb-5'>
           {title}
         </h2>
-        <div className='flex flex-col-reverse md:flex-row h-full mt-2 gap-5 md:gap-8 items-stretch md:items-center overflow-y-auto pr-1'>
-          <div className='w-full md:w-[50%] flex flex-col justify-between space-y-3.5 text-white/90'>
-            <div className='text-xs md:text-sm leading-relaxed text-white/90 space-y-2'>
+        <div className='flex flex-col-reverse md:flex-row h-full mt-1 md:mt-2 gap-6 md:gap-10 items-stretch md:items-center overflow-y-auto pr-1'>
+          <div className='w-full md:w-[52%] flex flex-col justify-between space-y-4 text-white'>
+            <div className='text-sm md:text-base leading-relaxed text-white space-y-3'>
               {description.split('\n\n').map((paragraph, idx) => {
                 if (paragraph.startsWith('Key features:')) {
                   const lines = paragraph.split('\n');
                   return (
-                    <div key={idx} className='space-y-1 pt-1'>
-                      <p className='font-semibold text-white'>{lines[0]}</p>
-                      <ul className='list-disc list-inside space-y-0.5 text-xs text-white/85 pl-1'>
+                    <div key={idx} className='space-y-1.5 pt-1'>
+                      <p className='font-bold text-white text-sm md:text-base'>{lines[0]}</p>
+                      <ul className='list-disc list-inside space-y-1 text-sm md:text-[15px] text-white/90 pl-1.5'>
                         {lines.slice(1).map((feature, fIdx) => (
-                          <li key={fIdx}>{feature.replace(/^[-•]\s*/, '')}</li>
+                          <li key={fIdx} className='leading-snug'>{feature.replace(/^[-•]\s*/, '')}</li>
                         ))}
                       </ul>
                     </div>
                   );
                 }
-                return <p key={idx}>{paragraph}</p>;
+                return <p key={idx} className='text-sm md:text-base leading-relaxed text-white/95'>{paragraph}</p>;
               })}
             </div>
             {tags && tags.length > 0 && (
-              <div className='flex flex-wrap gap-1.5 pt-1'>
+              <div className='flex flex-wrap gap-2 pt-1'>
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className='px-2.5 py-1 text-xs font-medium rounded-md bg-white/15 text-white border border-white/20'
+                    className='px-3 py-1.5 text-xs md:text-sm font-medium rounded-lg bg-white/15 text-white border border-white/20 shadow-sm'
                   >
                     {tag}
                   </span>
@@ -110,12 +110,12 @@ export const Card = ({
                   href={targetLink}
                   target='_blank'
                   rel='noreferrer'
-                  className='inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-500 text-white font-bold text-sm transition-all duration-200 shadow-md shadow-green-950/30 cursor-pointer hover:scale-[1.02] active:scale-[0.98] border border-green-500/30'
+                  className='inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-bold text-base transition-all duration-200 shadow-md shadow-green-950/30 cursor-pointer hover:scale-[1.02] active:scale-[0.98] border border-green-500/30'
                 >
                   <svg
                     viewBox='0 0 24 24'
-                    width='18'
-                    height='18'
+                    width='20'
+                    height='20'
                     fill='currentColor'
                     aria-hidden='true'
                   >
@@ -131,7 +131,7 @@ export const Card = ({
             )}
           </div>
 
-          <div className='relative w-full md:w-[50%] h-[200px] md:h-[320px] rounded-xl overflow-hidden shadow-inner bg-black/30 border border-white/10 flex-shrink-0'>
+          <div className='relative w-full md:w-[48%] h-[220px] md:h-[350px] rounded-xl overflow-hidden shadow-inner bg-black/30 border border-white/10 flex-shrink-0'>
             <motion.div className='w-full h-full' style={{ scale: imageScale }}>
               <img
                 src={url}
