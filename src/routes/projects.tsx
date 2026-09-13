@@ -6,17 +6,16 @@ export const Route = createFileRoute("/projects")({ component: ProjectsPage });
 const projects: ProjectData[] = [
   {
     title: "Face Detection System",
-    description: `Built a real-time facial recognition attendance management system using Python, Streamlit, and OpenCV — designed to automate manual attendance tracking and eliminate proxy attendance.
+    description: `A real-time facial recognition attendance system built with Python, Streamlit, and OpenCV — automates attendance tracking and eliminates proxy attendance.
 
 Key features:
-- Live face recognition via webcam using the face_recognition library (dlib-based deep learning embeddings) + OpenCV
-- Automatic timestamped attendance logging per subject/course, with duplicate-entry detection
-- Admin dashboard for managing student registrations, subjects, and teachers
-- Attendance reports with date/subject filtering and CSV export for logs and absentee lists
-- SQLite database for lightweight, persistent local storage
-- Streamlit-WebRTC integration for smooth real-time video streaming in-browser
+- Live face recognition via webcam (face_recognition + OpenCV)
+- Auto-logs timestamped attendance with duplicate detection
+- Admin dashboard for students, subjects, and teachers
+- Attendance reports with CSV export
+- SQLite for local data storage
 
-This project deepened my understanding of end-to-end computer vision pipelines — from face detection and embedding generation to building a usable admin interface around it — while solving real challenges like duplicate detection and reliable webcam handling across environments.`,
+Solved real challenges like duplicate detection and reliable webcam handling across devices.`,
     link: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80",
     color: "#1e293b",
     tags: [
