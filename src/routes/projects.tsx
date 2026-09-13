@@ -7,20 +7,20 @@ const projects: ProjectData[] = [
   {
     title: "Face Detection System",
     description:
-      "An intelligent real-time face detection and biometric recognition platform engineered with deep neural networks and computer vision algorithms. It features live multi-face tracking, landmark analysis, and instant classification.",
+      "A real-time facial recognition attendance management system built with Python, Streamlit, OpenCV, and face_recognition. Features live webcam streaming with face embeddings, automatic timestamped attendance logging with duplicate detection, an admin dashboard, and CSV report export.",
     link: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80",
     color: "#1e293b",
-    tags: ["Python", "OpenCV", "TensorFlow", "Deep Learning"],
-    githubUrl: "https://github.com/shivamraut747-ux",
-    liveUrl: "https://github.com/shivamraut747-ux",
+    tags: ["Python", "OpenCV", "Streamlit", "face_recognition", "SQLite3"],
+    githubUrl: "https://github.com/shivamraut747-ux/Face-Detection-System",
+    liveUrl: "https://github.com/shivamraut747-ux/Face-Detection-System",
   },
   {
     title: "Tourist Website",
     description:
-      "A modern full-stack travel and tourism discovery portal designed for exploring world destinations, booking curated vacation itineraries, viewing interactive location previews, and navigating responsive route guides.",
+      "An interactive travel and tourism web application built with HTML5, CSS3, JavaScript, and MySQL. Features curated holiday destination guides, dynamic exploration previews, custom trip itineraries, and structured relational database storage.",
     link: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
     color: "#0f766e",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+    tags: ["HTML5", "CSS3", "JavaScript", "MySQL"],
     githubUrl: "https://github.com/shivamraut747-ux",
     liveUrl: "https://github.com/shivamraut747-ux",
   },

@@ -4,20 +4,20 @@ const demoProjects: ProjectData[] = [
   {
     title: 'Face Detection System',
     description:
-      'High-performance real-time facial recognition and detection system powered by computer vision algorithms, live webcam stream analysis, and neural feature extraction.',
+      'A real-time facial recognition attendance management system built with Python, Streamlit, OpenCV, and face_recognition. Features live webcam streaming with face embeddings, automatic timestamped attendance logging with duplicate detection, an admin dashboard, and CSV report export.',
     link: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80',
     color: '#1e293b',
-    tags: ['Python', 'OpenCV', 'TensorFlow', 'Deep Learning'],
-    githubUrl: 'https://github.com/shivamraut747-ux',
-    liveUrl: 'https://github.com/shivamraut747-ux',
+    tags: ['Python', 'OpenCV', 'Streamlit', 'face_recognition', 'SQLite3'],
+    githubUrl: 'https://github.com/shivamraut747-ux/Face-Detection-System',
+    liveUrl: 'https://github.com/shivamraut747-ux/Face-Detection-System',
   },
   {
     title: 'Tourist Website',
     description:
-      'Interactive destination exploration platform showcasing global travel hotspots, curated itinerary planners, responsive booking guides, and interactive location previews.',
+      'An interactive travel and tourism web application built with HTML5, CSS3, JavaScript, and MySQL. Features curated holiday destination guides, dynamic exploration previews, custom trip itineraries, and structured relational database storage.',
     link: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80',
     color: '#0f766e',
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'],
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'MySQL'],
     githubUrl: 'https://github.com/shivamraut747-ux',
     liveUrl: 'https://github.com/shivamraut747-ux',
   },
