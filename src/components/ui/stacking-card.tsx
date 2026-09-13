@@ -76,7 +76,7 @@ export const Card = ({
           <div className='w-full md:w-[54%] flex flex-col justify-between space-y-3 text-white'>
             <div className='space-y-2.5'>
               {description.split('\n\n').map((paragraph, idx) => {
-                if (paragraph.startsWith('Key features:')) {
+                if (/^key\s*features?:?/i.test(paragraph.trim())) {
                   const lines = paragraph.split('\n');
                   return (
                     <div key={idx} className='space-y-1 pt-0.5'>
