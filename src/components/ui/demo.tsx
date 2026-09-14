@@ -10,11 +10,11 @@ const projects = [
     color: '#1e293b',
   },
   {
-    title: 'Tourist Website',
+    title: 'Blood Cell Classifier',
     description:
-      'Modern full-stack travel and tourism discovery portal designed for exploring world destinations and booking custom holiday itineraries.',
-    link: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80',
-    color: '#0f766e',
+      'Deep learning and computer vision system for automated leukocyte classification from blood smears with 97.5% accuracy.',
+    link: '/blood-cell-classifier.png',
+    color: '#3b1d28',
   },
 ];
 

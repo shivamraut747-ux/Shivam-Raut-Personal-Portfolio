@@ -12,14 +12,14 @@ const demoProjects: ProjectData[] = [
     liveUrl: 'https://github.com/shivamraut747-ux/Face-Detection-System',
   },
   {
-    title: 'Tourist Website',
+    title: 'Blood Cell Classifier',
     description:
-      'An interactive travel and tourism web application built with HTML5, CSS3, JavaScript, and MySQL. Features curated holiday destination guides, dynamic exploration previews, custom trip itineraries, and structured relational database storage.',
-    link: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80',
-    color: '#0f766e',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'MySQL'],
-    githubUrl: 'https://github.com/shivamraut747-ux',
-    liveUrl: 'https://github.com/shivamraut747-ux',
+      'An end-to-end Deep Learning system for automated white blood cell classification from peripheral blood smears using fine-tuned EfficientNetB3 with 97.5% accuracy.',
+    link: '/blood-cell-classifier.png',
+    color: '#3b1d28',
+    tags: ['Python', 'TensorFlow', 'Keras', 'EfficientNetB3', 'Streamlit'],
+    githubUrl: 'https://github.com/shivamraut747-ux/Blood-Cell-Classifier',
+    liveUrl: 'https://github.com/shivamraut747-ux/Blood-Cell-Classifier',
   },
 ];
 

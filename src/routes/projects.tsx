@@ -25,20 +25,24 @@ Key features:
     githubUrl: "https://github.com/shivamraut747-ux/Face-Detection-System",
   },
   {
-    title: "Tourist Website",
-    description: `An interactive travel and tourism web application built with HTML5, CSS3, JavaScript, and MySQL.
+    title: "Blood Cell Classifier",
+    description: `An end-to-end Deep Learning and Computer Vision system for automated white blood cell classification from peripheral blood smears.
 
 Key features:
-- Curated destination guides with dynamic previews
-- Interactive custom trip itineraries and planner
-- Relational database schema for bookings and destinations
-- Responsive modern layout optimized for all screens
-
-Engineered with structured SQL queries and modular JavaScript.`,
-    link: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
-    color: "#0f766e",
-    tags: ["HTML5", "CSS3", "JavaScript", "MySQL", "Web Development"],
-    githubUrl: "https://github.com/shivamraut747-ux",
+- Fine-tuned EfficientNetB3 CNN trained on 17,000+ smear images
+- 97.5% holdout test accuracy across 6 leukocyte cell lineages
+- Clinical Streamlit app with multi-view isolation & Plotly charts`,
+    link: "/blood-cell-classifier.png",
+    color: "#3b1d28",
+    tags: [
+      "Python",
+      "TensorFlow",
+      "Keras",
+      "EfficientNetB3",
+      "Deep Learning",
+      "Streamlit",
+    ],
+    githubUrl: "https://github.com/shivamraut747-ux/Blood-Cell-Classifier",
   },
 ];
 
