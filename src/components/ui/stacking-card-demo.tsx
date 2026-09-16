@@ -24,7 +24,7 @@ const demoProjects: ProjectData[] = [
   {
     title: 'Spam Email Detection',
     description:
-      'A production-grade machine learning system designed to classify emails as Spam or Ham using modular NLP pipelines with multi-algorithm evaluation and Streamlit UI.',
+      'A machine learning system for classifying emails as Spam or Ham, built with a modular NLP pipeline architecture, multi-algorithm evaluation, and Streamlit UI.',
     link: '/spam-email-detection.png',
     color: '#1e1b4b',
     tags: ['Python', 'Scikit-Learn', 'NLP', 'Machine Learning', 'Streamlit'],

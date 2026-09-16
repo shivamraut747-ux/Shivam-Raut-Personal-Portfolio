@@ -46,7 +46,7 @@ Key features:
   },
   {
     title: "Spam Email Detection",
-    description: `A production-grade machine learning system designed to classify emails as Spam or Ham using modular NLP pipelines.
+    description: `A machine learning system for classifying emails as Spam or Ham, built with a modular NLP pipeline architecture.
 
 Key features:
 - Multi-model evaluation across SVM, Random Forest, and Logistic Regression
