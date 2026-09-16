@@ -21,6 +21,16 @@ const demoProjects: ProjectData[] = [
     githubUrl: 'https://github.com/shivamraut747-ux/Blood-Cell-Classifier',
     liveUrl: 'https://github.com/shivamraut747-ux/Blood-Cell-Classifier',
   },
+  {
+    title: 'Spam Email Detection',
+    description:
+      'A production-grade machine learning system designed to classify emails as Spam or Ham using modular NLP pipelines with multi-algorithm evaluation and Streamlit UI.',
+    link: '/spam-email-detection.png',
+    color: '#1e1b4b',
+    tags: ['Python', 'Scikit-Learn', 'NLP', 'Machine Learning', 'Streamlit'],
+    githubUrl: 'https://github.com/shivamraut747-ux/Spam-Email-Detection',
+    liveUrl: 'https://github.com/shivamraut747-ux/Spam-Email-Detection',
+  },
 ];
 
 export default function ComponentDemo() {

@@ -16,6 +16,13 @@ const projects = [
     link: '/blood-cell-classifier.png',
     color: '#3b1d28',
   },
+  {
+    title: 'Spam Email Detection',
+    description:
+      'Production-grade NLP machine learning system for robust email classification and token importance analysis.',
+    link: '/spam-email-detection.png',
+    color: '#1e1b4b',
+  },
 ];
 
 function ComponentDemo() {
