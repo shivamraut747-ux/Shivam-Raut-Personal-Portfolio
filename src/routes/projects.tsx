@@ -44,26 +44,6 @@ Key features:
     ],
     githubUrl: "https://github.com/shivamraut747-ux/Blood-Cell-Classifier",
   },
-  {
-    title: "Spam Email Detection",
-    description: `A machine learning system for classifying emails as Spam or Ham, built with a modular NLP pipeline architecture.
-
-Key features:
-- Multi-model evaluation across SVM, Random Forest, and Logistic Regression
-- Interactive Streamlit app with single-email analysis and batch .mbox processing
-- Explainable trigger token highlight and confidence scoring metrics`,
-    link: "/spam-email-detection.png",
-    color: "#1e1b4b",
-    tags: [
-      "Python",
-      "Scikit-Learn",
-      "NLP",
-      "Machine Learning",
-      "Streamlit",
-      "Pandas",
-    ],
-    githubUrl: "https://github.com/shivamraut747-ux/Spam-Email-Detection",
-  },
 ];
 
 export function ProjectsPage() {
@@ -77,7 +57,7 @@ export function ProjectsPage() {
       <main className="content projects">
         <section className="projects-main">
           <div className="projects-container">
-            <div className="projects-header-block">
+            <div className="projects-header-block text-center">
               <h1 className="projects-title">projects.</h1>
               <p className="projects-intro">
                 A selection of web development, full-stack applications, and machine learning systems I've built.
