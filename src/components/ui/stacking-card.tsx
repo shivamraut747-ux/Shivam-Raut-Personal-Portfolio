@@ -155,6 +155,8 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(({ projects, class
     offset: ['start start', 'end end'],
   });
 
+  const step = projects.length > 1 ? 1 / (projects.length - 1) : 1;
+
   return (
     <ReactLenis root>
       <div className={cn('w-full', className)} ref={container}>
@@ -170,7 +172,7 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(({ projects, class
                 color={project.color}
                 description={project.description}
                 progress={scrollYProgress}
-                range={[i * 0.25, 1]}
+                range={[i * step, 1]}
                 targetScale={targetScale}
                 liveUrl={project.liveUrl}
                 githubUrl={project.githubUrl}
