@@ -123,7 +123,7 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
         </div>
         <div className="mobile-header-right">
           <div className="mobile-theme-toggle" title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}>
-            <Switch checked={isDark} onCheckedChange={toggleTheme} size={10} />
+            <Switch checked={isDark} onCheckedChange={toggleTheme} size={9} />
           </div>
           <button
             className="menu-trigger"
@@ -137,16 +137,63 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
       </div>
       {menuOpen && (
         <nav className="mobile-nav">
-          {navItems.map((item) => (
-            <Link
-              to={item.href!}
+          <div className="mobile-nav-links">
+            {navItems.map((item) => (
+              <Link
+                to={item.href!}
+                onClick={() => setMenuOpen(false)}
+                className={resolvedActiveItem === item.label ? "active" : ""}
+                key={item.label}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <div className="mobile-nav-actions">
+            <a
+              href="/Shivam_Vilas_Raut_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="mobile-resume-link"
               onClick={() => setMenuOpen(false)}
-              className={resolvedActiveItem === item.label ? "active" : ""}
-              key={item.label}
             >
-              {item.label}
-            </Link>
-          ))}
+              Resume ↗
+            </a>
+            <div className="mobile-nav-socials">
+              <a
+                href="https://www.linkedin.com/in/shivam-raut-9a9986376/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn profile"
+              >
+                <LinkedInHeaderLogo />
+              </a>
+              <a
+                href="https://github.com/shivamraut747-ux"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub profile"
+              >
+                <Github />
+              </a>
+              <a
+                href="https://www.instagram.com/ishivamr?stkn=aDBqZm84MGkxODl6"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram profile"
+              >
+                <Instagram />
+              </a>
+              <a
+                href="https://x.com/shivamraut92"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X profile"
+              >
+                <XLogo />
+              </a>
+            </div>
+          </div>
         </nav>
       )}
     </header>
