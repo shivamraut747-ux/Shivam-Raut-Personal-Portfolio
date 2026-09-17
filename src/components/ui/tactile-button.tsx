@@ -55,10 +55,10 @@ const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
 </head>
 <body class="bg-transparent text-neutral-200 h-screen w-screen overflow-hidden font-['Inter',sans-serif] selection:bg-[#06b6d4] selection:text-black relative flex items-center justify-center m-0 p-0">
 
-    <div class="intro flex items-center justify-center">
-        <button class="relative flex items-center justify-center w-[230px] sm:w-[250px] h-[52px] sm:h-[56px] border-0 p-0 rounded-[28px] overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[inset_0_0_0_1.5px_rgba(6,182,212,0.65),inset_0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[inset_0_0_0_2px_rgba(6,182,212,0.95),inset_0_0_22px_rgba(6,182,212,0.6)] active:scale-[0.985] outline-none focus:outline-none" id="btn" type="button">
-            <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block rounded-[28px] pointer-events-none"></canvas>
-            <span class="relative z-10 pointer-events-none font-bold text-[19px] sm:text-[21px] tracking-[0.24em] indent-[0.24em] text-white drop-shadow-[0_0_16px_rgba(6,182,212,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center justify-center antialiased">
+    <div class="intro flex items-center justify-center w-full h-full">
+        <button class="relative flex items-center justify-center w-full h-full max-w-full max-h-full border-0 p-0 rounded-full overflow-hidden cursor-pointer bg-[#04090e] transition-all duration-300 ease-out shadow-[inset_0_0_0_1.5px_rgba(6,182,212,0.65),inset_0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[inset_0_0_0_2px_rgba(6,182,212,0.95),inset_0_0_22px_rgba(6,182,212,0.6)] active:scale-[0.985] outline-none focus:outline-none" id="btn" type="button">
+            <canvas id="gl" aria-hidden="true" class="absolute inset-0 w-full h-full block rounded-full pointer-events-none"></canvas>
+            <span class="relative z-10 pointer-events-none font-bold text-[15px] sm:text-[19px] tracking-[0.22em] indent-[0.22em] text-white drop-shadow-[0_0_16px_rgba(6,182,212,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center justify-center antialiased">
                 Resume
             </span>
         </button>
@@ -291,7 +291,7 @@ body > * { visibility: hidden !important; }
 body[data-threeui-ready] > [data-threeui-role] { visibility: visible !important; }
 [data-threeui-residual] { display: none !important; }
 [data-threeui-hidden] { display: none !important; }
-[data-threeui-role="button"] { position: relative !important; z-index: 2 !important; opacity: 1 !important; flex: none !important; }
+[data-threeui-role="button"] { position: relative !important; z-index: 2 !important; opacity: 1 !important; flex: none !important; width: 100% !important; height: 100% !important; border-radius: 9999px !important; }
 [data-threeui-role="button"]:not([data-threeui-preserve-transform]) { transform: none !important; }
 </style>`;
   const focusScript = `<script data-threeui-focus>
