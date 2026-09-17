@@ -122,15 +122,6 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
           </div>
         </div>
         <div className="mobile-header-right">
-          <a
-            href="/Shivam_Vilas_Raut_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mobile-header-resume-btn"
-            aria-label="Open Shivam Raut Resume"
-          >
-            Resume
-          </a>
           <div className="mobile-theme-toggle" title={isDark ? "Switch to Day Mode" : "Switch to Night Mode"}>
             <Switch checked={isDark} onCheckedChange={toggleTheme} size={9} />
           </div>
@@ -159,17 +150,17 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
             ))}
           </div>
           <div className="mobile-nav-actions">
-            <a
-              href="/Shivam_Vilas_Raut_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mobile-resume-link"
-              onClick={() => {
-                setTimeout(() => setMenuOpen(false), 500);
-              }}
-            >
-              Resume ↗
-            </a>
+            <div className="mobile-resume-tactile-wrap">
+              <TactileButton
+                label="Resume"
+                className="resume-tactile-btn"
+                href="/Shivam_Vilas_Raut_Resume.pdf"
+                onClick={() => {
+                  window.open("/Shivam_Vilas_Raut_Resume.pdf", "_blank");
+                  setTimeout(() => setMenuOpen(false), 500);
+                }}
+              />
+            </div>
             <div className="mobile-nav-socials">
               <a
                 href="https://www.linkedin.com/in/shivam-raut-9a9986376/"

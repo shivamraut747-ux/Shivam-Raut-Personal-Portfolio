@@ -181,6 +181,27 @@ const NEXUS_TACTILE_SOURCE = `<!DOCTYPE html>
                 tiltTarget = Math.max(-1, Math.min(1, (x - 0.5) * 2));
             });
             btn.addEventListener('mouseleave', function () { lastX = null; tiltTarget = 0; });
+            btn.addEventListener('touchstart', function (e) {
+                slosh = Math.min(1.4, slosh + 0.6);
+                if (e.touches && e.touches[0]) {
+                    var rect = btn.getBoundingClientRect();
+                    var x = (e.touches[0].clientX - rect.left) / Math.max(1, rect.width);
+                    lastX = x;
+                    tiltTarget = Math.max(-1, Math.min(1, (x - 0.5) * 2));
+                }
+            }, { passive: true });
+            btn.addEventListener('touchmove', function (e) {
+                if (e.touches && e.touches[0]) {
+                    var rect = btn.getBoundingClientRect();
+                    var x = (e.touches[0].clientX - rect.left) / Math.max(1, rect.width);
+                    if (lastX !== null) {
+                        slosh = Math.min(1.4, slosh + Math.abs(x - lastX) * 2.6);
+                    }
+                    lastX = x;
+                    tiltTarget = Math.max(-1, Math.min(1, (x - 0.5) * 2));
+                }
+            }, { passive: true });
+            btn.addEventListener('touchend', function () { lastX = null; tiltTarget = 0; });
             btn.addEventListener('focus', function () { slosh = Math.min(1.4, slosh + 0.5); });
             btn.addEventListener('click', function () {
                 gulp = 1;
