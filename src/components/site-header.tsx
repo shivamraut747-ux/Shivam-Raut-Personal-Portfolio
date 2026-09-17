@@ -1,4 +1,4 @@
-import { Github, Instagram, Menu, X } from "lucide-react";
+import { Download, ExternalLink, FileText, Github, Instagram, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
@@ -150,15 +150,31 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
             ))}
           </div>
           <div className="mobile-nav-actions">
-            <a
-              href="/Shivam_Vilas_Raut_Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="mobile-resume-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Resume ↗
-            </a>
+            <div className="mobile-resume-group">
+              <a
+                href="/Shivam_Vilas_Raut_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mobile-resume-link"
+                onClick={() => {
+                  setTimeout(() => setMenuOpen(false), 500);
+                }}
+              >
+                <FileText size={16} />
+                <span>View Resume ↗</span>
+              </a>
+              <a
+                href="/Shivam_Vilas_Raut_Resume.pdf"
+                download="Shivam_Vilas_Raut_Resume.pdf"
+                className="mobile-resume-download"
+                onClick={() => {
+                  setTimeout(() => setMenuOpen(false), 500);
+                }}
+              >
+                <Download size={16} />
+                <span>Download PDF</span>
+              </a>
+            </div>
             <div className="mobile-nav-socials">
               <a
                 href="https://www.linkedin.com/in/shivam-raut-9a9986376/"
