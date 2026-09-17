@@ -59,7 +59,7 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className='min-h-[85vh] md:min-h-screen flex items-start justify-center sticky top-6 md:top-8 pt-0 pb-12'
+      className='w-full flex items-start justify-center sticky top-6 md:top-8 pt-0'
     >
       <motion.div
         style={{
@@ -160,7 +160,7 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(({ projects, class
   return (
     <ReactLenis root>
       <div className={cn('w-full', className)} ref={container}>
-        <div className='w-full'>
+        <div className='w-full pb-[40vh] md:pb-[50vh]'>
           {projects.map((project, i) => {
             const targetScale = 1 - (projects.length - i) * 0.05;
             return (
