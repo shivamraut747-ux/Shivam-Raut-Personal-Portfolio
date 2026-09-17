@@ -59,15 +59,15 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className='min-h-[90vh] md:min-h-screen flex items-center justify-center sticky top-0 py-6 md:py-12'
+      className='min-h-[85vh] md:min-h-screen flex items-start justify-center sticky top-6 md:top-8 pt-0 pb-12'
     >
       <motion.div
         style={{
           backgroundColor: color,
           scale,
-          top: `calc(-2vh + ${i * 28}px)`,
+          top: `${i * 28}px`,
         }}
-        className='flex flex-col relative -top-[6%] md:-top-[10%] h-auto w-[94%] max-w-[1100px] rounded-2xl p-6 md:p-8 origin-top shadow-2xl border border-white/15 text-white overflow-hidden backdrop-blur-md'
+        className='flex flex-col relative h-auto w-[94%] max-w-[1100px] rounded-2xl p-6 md:p-8 origin-top shadow-2xl border border-white/15 text-white overflow-hidden backdrop-blur-md'
       >
         <h2 className='text-2xl md:text-3xl lg:text-4xl text-left md:text-center font-bold tracking-tight text-white mb-3 md:mb-4'>
           {title}

@@ -797,7 +797,11 @@
 
 /* Projects Page Grid & Cards */
 .projects-header-block {
-  margin-bottom: clamp(16px, 2.5vh, 28px);
+  margin-bottom: 0;
+}
+
+.projects-header-block .projects-intro {
+  margin-bottom: 36px;
 }
 
 .projects-grid {
