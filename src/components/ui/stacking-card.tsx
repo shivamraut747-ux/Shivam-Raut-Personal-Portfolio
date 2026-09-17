@@ -52,7 +52,7 @@ export const Card = ({
     offset: ['start end', 'start start'],
   });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.7, 1]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
   const targetLink = liveUrl || githubUrl || '#';
 
@@ -170,7 +170,7 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(({ projects, class
                 color={project.color}
                 description={project.description}
                 progress={scrollYProgress}
-                range={[i * (1 / projects.length), 1]}
+                range={[i * 0.25, 1]}
                 targetScale={targetScale}
                 liveUrl={project.liveUrl}
                 githubUrl={project.githubUrl}
