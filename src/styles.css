@@ -639,6 +639,9 @@
   .about-intro,
   .skills-intro,
   .contact-intro { margin-bottom: 20px; }
+  .skills-page main.content { justify-content: flex-start; }
+  .skill-cards,
+  .skill-card { touch-action: pan-y !important; }
   .skill-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
   .form-card { padding: 28px 20px 32px; }
   .form-row-2col { grid-template-columns: 1fr; gap: 0; }
