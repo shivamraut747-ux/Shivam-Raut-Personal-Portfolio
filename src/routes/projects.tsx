@@ -76,7 +76,7 @@ export function ProjectsPage() {
       <main className="content projects">
         <section className="projects-main">
           <div className="projects-container">
-            <div className="projects-header-block text-center">
+            <div className="projects-header-block">
               <h1 className="projects-title">projects.</h1>
               <p className="projects-intro">
                 A selection of web development, full-stack applications, and machine learning systems I've built.

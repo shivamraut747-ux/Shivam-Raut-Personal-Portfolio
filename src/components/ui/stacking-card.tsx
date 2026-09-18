@@ -67,7 +67,7 @@ export const Card = ({
           scale,
           top: `${i * 28}px`,
         }}
-        className='flex flex-col relative h-auto w-[94%] max-w-[1100px] rounded-2xl p-6 md:p-8 origin-top shadow-2xl border border-white/15 text-white overflow-hidden backdrop-blur-md'
+        className='flex flex-col relative h-auto w-full max-w-[1100px] rounded-2xl p-6 md:p-8 origin-top shadow-2xl border border-white/15 text-white overflow-hidden backdrop-blur-md'
       >
         <h2 className='text-2xl md:text-3xl lg:text-4xl text-left md:text-center font-bold tracking-tight text-white mb-3 md:mb-4'>
           {title}
