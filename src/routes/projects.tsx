@@ -17,7 +17,6 @@ Key features:
     tags: [
       "Python",
       "OpenCV",
-      "Streamlit",
       "Computer Vision",
       "Machine Learning",
       "CNN",
