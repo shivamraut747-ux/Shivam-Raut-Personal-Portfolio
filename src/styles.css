@@ -12,11 +12,44 @@
 .about-page,
 .projects-page,
 .skills-page,
-.contact-page {
+.contact-page,
+.portfolio-single-page {
   background: #ffffff;
   min-height: calc(100vh - 92px);
   display: flex;
   flex-direction: column;
+}
+
+.page-section {
+  width: 100%;
+  position: relative;
+}
+
+.page-section.about-section {
+  min-height: calc(100vh - 92px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-section.about-section main.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-section.projects-section {
+  padding-top: clamp(20px, 3vh, 40px);
+}
+
+.page-section.skills-section {
+  padding-top: clamp(24px, 3.5vh, 48px);
+}
+
+.page-section.contact-block {
+  padding-top: clamp(24px, 3.5vh, 48px);
+  padding-bottom: clamp(24px, 3.5vh, 48px);
 }
 
 .about-page main.content,
@@ -1035,6 +1068,7 @@ body,
 .projects-page,
 .skills-page,
 .contact-page,
+.portfolio-single-page,
 .about-main,
 .projects-main,
 .skills-main,
@@ -1082,6 +1116,7 @@ html.dark,
 .dark .projects-page,
 .dark .skills-page,
 .dark .contact-page,
+.dark .portfolio-single-page,
 .dark .about-main,
 .dark .projects-main,
 .dark .skills-main,

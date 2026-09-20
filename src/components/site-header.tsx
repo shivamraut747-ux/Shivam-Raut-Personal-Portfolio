@@ -1,5 +1,5 @@
 import { Github, Instagram, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
 import { LimelightNav, NavItem } from "@/components/ui/limelight-nav";
@@ -7,11 +7,11 @@ import TactileButton from "@/components/ui/tactile-button";
 import Switch from "@/components/ui/sky-toggle";
 import { useTheme } from "@/hooks/use-theme";
 
-const navItems: NavItem[] = [
-  { id: "about", label: "about", href: "/about" },
-  { id: "projects", label: "projects", href: "/projects" },
-  { id: "skills", label: "skills", href: "/skills" },
-  { id: "contact", label: "contact", href: "/contact" },
+const baseNavItems = [
+  { id: "about", label: "about" },
+  { id: "projects", label: "projects" },
+  { id: "skills", label: "skills" },
+  { id: "contact", label: "contact" },
 ];
 
 function XLogo() {
@@ -33,6 +33,7 @@ function LinkedInHeaderLogo() {
 export function SiteHeader({ activeItem }: { activeItem?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+  const [activeSection, setActiveSection] = useState<string>("about");
 
   let currentPath = "";
   try {
@@ -42,8 +43,59 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
     currentPath = "";
   }
 
-  const resolvedActiveItem =
+  // Scroll spy to detect active section in view
+  useEffect(() => {
+    const sectionIds = ["about", "projects", "skills", "contact"];
+    const handleScroll = () => {
+      const headerHeight = window.innerWidth <= 900 ? 74 : 92;
+      const scrollPosition = window.scrollY + headerHeight + 100;
+
+      let current = sectionIds[0];
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPosition >= top) {
+            current = id;
+          }
+        }
+      }
+
+      // If near page bottom, activate contact
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        current = "contact";
+      }
+
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    const el = document.getElementById(id);
+    if (el) {
+      const headerHeight = window.innerWidth <= 900 ? 74 : 92;
+      const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "smooth",
+      });
+      window.history.pushState(null, "", `/#${id}`);
+      setActiveSection(id);
+    } else {
+      window.location.href = `/#${id}`;
+    }
+  };
+
+  const currentActive =
     activeItem ||
+    activeSection ||
     (currentPath === "/" || currentPath.startsWith("/about")
       ? "about"
       : currentPath.startsWith("/projects")
@@ -52,16 +104,28 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
       ? "skills"
       : currentPath.startsWith("/contact")
       ? "contact"
-      : undefined);
+      : "about");
 
-  const activeIndex = navItems.findIndex((item) => item.label === resolvedActiveItem);
+  const activeIndex = baseNavItems.findIndex((item) => item.id === currentActive);
+
+  const dynamicNavItems: NavItem[] = baseNavItems.map((item) => ({
+    id: item.id,
+    label: item.label,
+    href: `#${item.id}`,
+    onClick: (e) => scrollToSection(item.id, e),
+  }));
 
   return (
     <header className="header">
       <div className="header-content">
-        <Link to="/" className="brand-mark" aria-label="Shivam Raut home">
+        <a
+          href="#about"
+          onClick={(e) => scrollToSection("about", e)}
+          className="brand-mark"
+          aria-label="Shivam Raut home"
+        >
           <img className="brand-logo" src={shivamLogo} alt="" />
-        </Link>
+        </a>
         <div className="header-resume-cta">
           <TactileButton
             label="Resume"
@@ -72,8 +136,8 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
         </div>
         <div className="desktop-nav-wrap">
           <LimelightNav
-            items={navItems}
-            {...(activeIndex >= 0 ? { activeIndex } : {})}
+            items={dynamicNavItems}
+            activeIndex={activeIndex >= 0 ? activeIndex : 0}
             defaultActiveIndex={activeIndex >= 0 ? activeIndex : 0}
           />
         </div>
@@ -138,15 +202,18 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
       {menuOpen && (
         <nav className="mobile-nav">
           <div className="mobile-nav-links">
-            {navItems.map((item) => (
-              <Link
-                to={item.href!}
-                onClick={() => setMenuOpen(false)}
-                className={resolvedActiveItem === item.label ? "active" : ""}
+            {baseNavItems.map((item) => (
+              <a
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  setMenuOpen(false);
+                  scrollToSection(item.id, e);
+                }}
+                className={currentActive === item.id ? "active" : ""}
                 key={item.label}
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
           </div>
           <div className="mobile-nav-actions">

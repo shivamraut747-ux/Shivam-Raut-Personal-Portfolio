@@ -1,4 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AboutPage } from "./about";
+import { PortfolioHome } from "@/components/portfolio-home";
 
-export const Route = createFileRoute("/")({ component: AboutPage });
+export const Route = createFileRoute("/")({ component: IndexPage });
+
+function IndexPage() {
+  return <PortfolioHome />;
+}

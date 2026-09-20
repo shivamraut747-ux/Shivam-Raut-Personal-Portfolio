@@ -27,7 +27,7 @@ export type NavItem = {
   id: string | number;
   icon?: React.ReactElement;
   label?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLAnchorElement>) => void;
   href?: string;
 };
 
@@ -130,10 +130,10 @@ export const LimelightNav = ({
     return null;
   }
 
-  const handleItemClick = (index: number, itemOnClick?: () => void) => {
+  const handleItemClick = (index: number, e?: React.MouseEvent<HTMLAnchorElement>, itemOnClick?: (e?: React.MouseEvent<HTMLAnchorElement>) => void) => {
     setActiveIndex(index);
     onTabChange?.(index);
-    itemOnClick?.();
+    itemOnClick?.(e);
   };
 
   return (
@@ -163,11 +163,11 @@ export const LimelightNav = ({
             navItemRefs.current[index] = el;
           },
           className: `limelight-item ${isActive ? 'active' : ''} ${iconContainerClassName}`.trim(),
-          onClick: () => handleItemClick(index, onClick),
+          onClick: (e: React.MouseEvent<HTMLAnchorElement>) => handleItemClick(index, e, onClick),
           'aria-label': label,
         };
 
-        if (href) {
+        if (href && !href.startsWith('#')) {
           return (
             <Link key={id} to={href} {...commonProps}>
               {innerContent}
@@ -176,7 +176,7 @@ export const LimelightNav = ({
         }
 
         return (
-          <a key={id} {...commonProps}>
+          <a key={id} href={href || `#${id}`} {...commonProps}>
             {innerContent}
           </a>
         );

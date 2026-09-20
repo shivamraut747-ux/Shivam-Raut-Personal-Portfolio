@@ -158,31 +158,29 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(({ projects, class
   const step = projects.length > 1 ? 1 / (projects.length - 1) : 1;
 
   return (
-    <ReactLenis root>
-      <div className={cn('w-full', className)} ref={container}>
-        <div className='w-full pb-[40vh] md:pb-[50vh]'>
-          {projects.map((project, i) => {
-            const targetScale = 1 - (projects.length - i) * 0.05;
-            return (
-              <Card
-                key={`p_${i}`}
-                i={i}
-                url={project.link}
-                title={project.title}
-                color={project.color}
-                description={project.description}
-                progress={scrollYProgress}
-                range={[i * step, 1]}
-                targetScale={targetScale}
-                liveUrl={project.liveUrl}
-                githubUrl={project.githubUrl}
-                tags={project.tags}
-              />
-            );
-          })}
-        </div>
+    <div className={cn('w-full', className)} ref={container}>
+      <div className='w-full pb-[24vh] md:pb-[32vh]'>
+        {projects.map((project, i) => {
+          const targetScale = 1 - (projects.length - i) * 0.05;
+          return (
+            <Card
+              key={`p_${i}`}
+              i={i}
+              url={project.link}
+              title={project.title}
+              color={project.color}
+              description={project.description}
+              progress={scrollYProgress}
+              range={[i * step, 1]}
+              targetScale={targetScale}
+              liveUrl={project.liveUrl}
+              githubUrl={project.githubUrl}
+              tags={project.tags}
+            />
+          );
+        })}
       </div>
-    </ReactLenis>
+    </div>
   );
 });
 
