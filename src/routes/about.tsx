@@ -19,7 +19,20 @@ export function AboutPage() {
               <div className="about-left-col">
                 <h1 className="about-title">about.</h1>
                 <p className="about-intro">
-                  I'm Shivam Raut, a Full-Stack Web Developer based in Maharashtra, India.
+                  I'm{" "}
+                  <span
+                    style={{
+                      fontWeight: 700,
+                      background: "linear-gradient(90deg, #FACC15, #F59E0B)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      color: "transparent",
+                    }}
+                  >
+                    Shivam Raut
+                  </span>
+                  , a Full-Stack Web Developer based in Maharashtra, India.
                 </p>
 
                 <div className="about-body">
