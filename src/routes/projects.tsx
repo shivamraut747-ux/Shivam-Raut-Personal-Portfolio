@@ -63,6 +63,26 @@ Key features:
     ],
     githubUrl: "https://github.com/shivamraut747-ux/Spam-Email-Detection",
   },
+  {
+    title: "SuperStore Sales Forecast",
+    description: `An end-to-end Power BI dashboard analyzing retail sales performance with a 15-day predictive forecast.
+
+Key features:
+- Interactive KPI tracking for revenue ($522K), delivery turnaround, and shipping modes
+- 15-day time series sales forecasting with 95% confidence intervals using Power BI ETS
+- Star schema data model powered by DAX time-intelligence measures and SQL validation`,
+    link: "/superstore-sales-forecast.png",
+    color: "#0f2b48",
+    tags: [
+      "Power BI",
+      "DAX",
+      "SQL",
+      "Power Query",
+      "Data Analytics",
+      "Forecasting",
+    ],
+    githubUrl: "https://github.com/shivamraut747-ux/superstore-sales-forecast",
+  },
 ];
 
 export function ProjectsPage() {
