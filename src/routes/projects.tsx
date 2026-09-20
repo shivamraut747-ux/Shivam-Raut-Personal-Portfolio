@@ -99,7 +99,7 @@ export function ProjectsPage() {
             <div className="projects-header-block">
               <h1 className="projects-title">projects.</h1>
               <p className="projects-intro">
-                AI/ML systems and data analytics projects I've built — spanning computer vision, predictive modeling, and business intelligence dashboards.
+                AI/ML systems and data analytics projects I've built.
               </p>
             </div>
 
