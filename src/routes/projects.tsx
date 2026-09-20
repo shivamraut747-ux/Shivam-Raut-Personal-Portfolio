@@ -68,9 +68,9 @@ Key features:
     description: `An end-to-end Power BI dashboard analyzing retail sales performance with a 15-day predictive forecast.
 
 Key features:
-- Interactive KPI tracking for revenue ($522K), delivery turnaround, and shipping modes
-- 15-day time series sales forecasting with 95% confidence intervals using Power BI ETS
-- Star schema data model powered by DAX time-intelligence measures and SQL validation`,
+- Interactive KPI dashboard tracking revenue, delivery time, and sales by region, category, and shipping mode
+- 15-day sales forecast using Power BI's built-in forecasting engine
+- Regional and state-level sales analysis with interactive map and slicers`,
     link: "/superstore-sales-forecast.png",
     color: "#0f2b48",
     tags: [
