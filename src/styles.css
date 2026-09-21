@@ -55,32 +55,29 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-top: clamp(24px, 3.5vh, 48px);
-  padding-bottom: clamp(24px, 3.5vh, 48px);
+  justify-content: flex-start;
 }
 
 .page-section.skills-section main.content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .page-section.contact-block {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-top: clamp(24px, 3.5vh, 48px);
-  padding-bottom: clamp(24px, 3.5vh, 48px);
+  justify-content: flex-start;
+  padding-bottom: clamp(40px, 6vh, 80px);
 }
 
 .page-section.contact-block main.content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .about-page main.content,
