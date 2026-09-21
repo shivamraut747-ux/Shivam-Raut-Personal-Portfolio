@@ -86,16 +86,21 @@ export const LimelightNav = ({
       ? routeActiveIndex
       : defaultActiveIndex;
 
-  const [activeIndex, setActiveIndex] = useState(computedActiveIndex);
+  const [internalActiveIndex, setInternalActiveIndex] = useState(computedActiveIndex);
+  const activeIndex =
+    controlledActiveIndex !== undefined && controlledActiveIndex >= 0
+      ? controlledActiveIndex
+      : internalActiveIndex;
+
   const [isReady, setIsReady] = useState(false);
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const limelightRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (computedActiveIndex >= 0) {
-      setActiveIndex(computedActiveIndex);
+    if (controlledActiveIndex === undefined && computedActiveIndex >= 0) {
+      setInternalActiveIndex(computedActiveIndex);
     }
-  }, [computedActiveIndex]);
+  }, [controlledActiveIndex, computedActiveIndex]);
 
   const updatePosition = () => {
     if (items.length === 0) return;
@@ -116,7 +121,7 @@ export const LimelightNav = ({
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [activeIndex, isReady, items]);
+  }, [activeIndex, isReady]);
 
   useEffect(() => {
     updatePosition();
@@ -131,7 +136,7 @@ export const LimelightNav = ({
   }
 
   const handleItemClick = (index: number, e?: React.MouseEvent<HTMLAnchorElement>, itemOnClick?: (e?: React.MouseEvent<HTMLAnchorElement>) => void) => {
-    setActiveIndex(index);
+    setInternalActiveIndex(index);
     onTabChange?.(index);
     itemOnClick?.(e);
   };

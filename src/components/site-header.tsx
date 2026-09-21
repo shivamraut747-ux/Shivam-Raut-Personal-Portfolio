@@ -1,5 +1,5 @@
 import { Github, Instagram, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import shivamLogo from "@/assets/wmremove-transformed.png";
 import { LimelightNav, NavItem } from "@/components/ui/limelight-nav";
@@ -33,7 +33,6 @@ function LinkedInHeaderLogo() {
 export function SiteHeader({ activeItem }: { activeItem?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState<string>("about");
 
   let currentPath = "";
   try {
@@ -43,10 +42,28 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
     currentPath = "";
   }
 
+  const getInitialSection = () => {
+    if (activeItem) return activeItem;
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash.replace("#", "");
+      if (baseNavItems.some((item) => item.id === hash)) return hash;
+    }
+    if (currentPath.startsWith("/projects")) return "projects";
+    if (currentPath.startsWith("/skills")) return "skills";
+    if (currentPath.startsWith("/contact")) return "contact";
+    return "about";
+  };
+
+  const [activeSection, setActiveSection] = useState<string>(getInitialSection);
+  const isProgrammaticScroll = useRef(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // Scroll spy to detect active section in view
   useEffect(() => {
     const sectionIds = ["about", "projects", "skills", "contact"];
     const handleScroll = () => {
+      if (isProgrammaticScroll.current) return;
+
       const headerHeight = window.innerWidth <= 900 ? 74 : 92;
       const scrollPosition = window.scrollY + headerHeight + 100;
 
@@ -69,9 +86,23 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
       setActiveSection(current);
     };
 
+    const handleUserInteraction = () => {
+      if (isProgrammaticScroll.current) {
+        isProgrammaticScroll.current = false;
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("wheel", handleUserInteraction, { passive: true });
+    window.addEventListener("touchmove", handleUserInteraction, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleUserInteraction);
+      window.removeEventListener("touchmove", handleUserInteraction);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
   const scrollToSection = (id: string, e?: React.MouseEvent) => {
@@ -80,9 +111,16 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
     }
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      window.history.pushState(null, "", `/#${id}`);
+      isProgrammaticScroll.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+
       setActiveSection(id);
+      window.history.pushState(null, "", `/#${id}`);
+      el.scrollIntoView({ behavior: "smooth" });
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        isProgrammaticScroll.current = false;
+      }, 850);
     } else {
       window.location.href = `/#${id}`;
     }
@@ -103,12 +141,16 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
 
   const activeIndex = baseNavItems.findIndex((item) => item.id === currentActive);
 
-  const dynamicNavItems: NavItem[] = baseNavItems.map((item) => ({
-    id: item.id,
-    label: item.label,
-    href: `#${item.id}`,
-    onClick: (e) => scrollToSection(item.id, e),
-  }));
+  const dynamicNavItems: NavItem[] = useMemo(
+    () =>
+      baseNavItems.map((item) => ({
+        id: item.id,
+        label: item.label,
+        href: `#${item.id}`,
+        onClick: (e) => scrollToSection(item.id, e),
+      })),
+    []
+  );
 
   return (
     <header className="header">

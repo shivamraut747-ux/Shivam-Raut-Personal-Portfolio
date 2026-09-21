@@ -634,6 +634,7 @@
   background: #ffffff !important;
   box-shadow: 0 0 12px #ffffff, 0 0 24px rgba(255, 255, 255, 0.7) !important;
   pointer-events: none;
+  will-change: left;
 }
 
 .limelight-beam-wrapper.init {
@@ -643,7 +644,7 @@
 
 .limelight-beam-wrapper.ready {
   opacity: 1;
-  transition: left 0.4s ease-in-out, opacity 0.15s ease-in-out;
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease-in-out;
 }
 
 .duration-400 {
