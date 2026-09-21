@@ -47,12 +47,35 @@
 }
 
 .page-section.skills-section {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-top: clamp(24px, 3.5vh, 48px);
+  padding-bottom: clamp(48px, 6vh, 80px);
+}
+
+.page-section.skills-section main.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .page-section.contact-block {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-top: clamp(24px, 3.5vh, 48px);
-  padding-bottom: clamp(24px, 3.5vh, 48px);
+  padding-bottom: clamp(48px, 6vh, 80px);
+}
+
+.page-section.contact-block main.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .about-page main.content,
@@ -684,7 +707,10 @@
   .skills-intro,
   .projects-intro,
   .contact-intro { margin-bottom: 20px; }
-  .skills-page main.content { justify-content: flex-start; }
+  .skills-page main.content,
+  .contact-page main.content,
+  .page-section.skills-section main.content,
+  .page-section.contact-block main.content { justify-content: flex-start; }
   .skill-cards,
   .skill-card { touch-action: pan-y !important; }
   .skill-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
