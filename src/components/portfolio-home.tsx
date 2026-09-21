@@ -353,7 +353,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         {/* =================================================================
             1. ABOUT SECTION
             ================================================================= */}
-        <section id="about" className="page-section about-section scroll-mt-[92px]">
+        <section id="about" className="page-section about-section">
           <main className="content about">
             <div className="about-main">
               <div className="about-container">
@@ -402,7 +402,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         {/* =================================================================
             2. PROJECTS SECTION
             ================================================================= */}
-        <section id="projects" className="page-section projects-section scroll-mt-[92px]">
+        <section id="projects" className="page-section projects-section">
           <main className="content projects">
             <div className="projects-main">
               <div className="projects-container">
@@ -422,7 +422,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         {/* =================================================================
             3. SKILLS SECTION
             ================================================================= */}
-        <section id="skills" className="page-section skills-section scroll-mt-[92px]">
+        <section id="skills" className="page-section skills-section">
           <main className="content skills">
             <div className="skills-main">
               <div className="skills-container">
@@ -458,7 +458,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         {/* =================================================================
             4. CONTACT SECTION
             ================================================================= */}
-        <section id="contact" className="page-section contact-block scroll-mt-[92px]">
+        <section id="contact" className="page-section contact-block">
           <main className="content contact">
             <div className="contact-main">
               <div className="contact-container">

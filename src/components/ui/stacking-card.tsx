@@ -59,7 +59,7 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className='w-full flex items-start justify-center sticky top-6 md:top-8 pt-0'
+      className='w-full flex items-start justify-center pt-0 stacking-card-sticky'
     >
       <motion.div
         style={{
