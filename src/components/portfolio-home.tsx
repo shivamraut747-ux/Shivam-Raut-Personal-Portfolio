@@ -576,47 +576,47 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
               </div>
             </div>
           </main>
-        </section>
 
-        {/* =================================================================
-            5. UNIFIED FOOTER
-            ================================================================= */}
-        <footer className="dannaway-footer">
-          <div className="footer-container">
-            <div className="footer-left">
-              <Link to="/">© {new Date().getFullYear()} Shivam Raut</Link>
+          {/* =================================================================
+              5. UNIFIED FOOTER
+              ================================================================= */}
+          <footer className="dannaway-footer">
+            <div className="footer-container">
+              <div className="footer-left">
+                <Link to="/">© {new Date().getFullYear()} Shivam Raut</Link>
+              </div>
+              <nav className="footer-nav" aria-label="Footer navigation">
+                <ul>
+                  <li>
+                    <a href="#about" onClick={(e) => scrollToSectionFromFooter("about", e)}>
+                      about
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#projects" onClick={(e) => scrollToSectionFromFooter("projects", e)}>
+                      projects
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#skills" onClick={(e) => scrollToSectionFromFooter("skills", e)}>
+                      skills
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#contact" onClick={(e) => scrollToSectionFromFooter("contact", e)}>
+                      contact
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav className="footer-nav" aria-label="Footer navigation">
-              <ul>
-                <li>
-                  <a href="#about" onClick={(e) => scrollToSectionFromFooter("about", e)}>
-                    about
-                  </a>
-                </li>
-                <li>
-                  <a href="#projects" onClick={(e) => scrollToSectionFromFooter("projects", e)}>
-                    projects
-                  </a>
-                </li>
-                <li>
-                  <a href="#skills" onClick={(e) => scrollToSectionFromFooter("skills", e)}>
-                    skills
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" onClick={(e) => scrollToSectionFromFooter("contact", e)}>
-                    contact
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div className="footer-back-to-top">
-            <a href="#top" onClick={scrollToTop} className="top-link">
-              Back to top ↑
-            </a>
-          </div>
-        </footer>
+            <div className="footer-back-to-top">
+              <a href="#top" onClick={scrollToTop} className="top-link">
+                Back to top ↑
+              </a>
+            </div>
+          </footer>
+        </section>
       </div>
     </ReactLenis>
   );
