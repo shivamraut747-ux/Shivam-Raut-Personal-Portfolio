@@ -80,12 +80,7 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
     }
     const el = document.getElementById(id);
     if (el) {
-      const headerHeight = window.innerWidth <= 900 ? 74 : 92;
-      const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-      window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: "smooth",
-      });
+      el.scrollIntoView({ behavior: "smooth" });
       window.history.pushState(null, "", `/#${id}`);
       setActiveSection(id);
     } else {

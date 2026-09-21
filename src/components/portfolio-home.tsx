@@ -304,12 +304,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
       const timer = setTimeout(() => {
         const el = document.getElementById(sectionToScroll);
         if (el) {
-          const headerHeight = window.innerWidth <= 900 ? 74 : 92;
-          const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: Math.max(0, targetY),
-            behavior: "smooth",
-          });
+          el.scrollIntoView({ behavior: "smooth" });
         }
       }, 120);
       return () => clearTimeout(timer);
@@ -329,7 +324,12 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
 
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const el = document.getElementById("about");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     window.history.pushState(null, "", "/#about");
   };
 
@@ -337,12 +337,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
     e.preventDefault();
     const el = document.getElementById(id);
     if (el) {
-      const headerHeight = window.innerWidth <= 900 ? 74 : 92;
-      const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-      window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: "smooth",
-      });
+      el.scrollIntoView({ behavior: "smooth" });
       window.history.pushState(null, "", `/#${id}`);
     }
   };
