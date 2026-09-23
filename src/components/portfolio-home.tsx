@@ -436,7 +436,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
                     showCaption
                     autoPlay
                     autoPlaySpeed={0.4}
-                    cardWidth="clamp(165px, 22vw, 240px)"
+                    cardWidth="clamp(130px, 21.7cqw, 240px)"
                     cardClassName="skills-carousel-card"
                   />
                 </div>

@@ -402,7 +402,7 @@ export function CoverflowCarousel({
 
   return (
     <div
-      className={cn("w-full", className)}
+      className={cn("w-full [container-type:inline-size]", className)}
       style={{ ["--cf-card" as string]: cardWidth }}
       role="region"
       aria-roledescription="carousel"
