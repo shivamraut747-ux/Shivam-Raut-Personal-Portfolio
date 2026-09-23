@@ -483,7 +483,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Previous slide"
               onClick={() => nudge(-1)}
-              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground backdrop-blur transition hover:bg-background"
+              className="navigation-arrow navigation-arrow-prev absolute left-3 md:left-6 top-1/2 z-[250] -translate-y-1/2 rounded-full bg-background/80 p-2.5 text-foreground shadow-lg backdrop-blur transition hover:bg-background"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -491,7 +491,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Next slide"
               onClick={() => nudge(1)}
-              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground backdrop-blur transition hover:bg-background"
+              className="navigation-arrow navigation-arrow-next absolute right-3 md:right-6 top-1/2 z-[250] -translate-y-1/2 rounded-full bg-background/80 p-2.5 text-foreground shadow-lg backdrop-blur transition hover:bg-background"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -526,7 +526,7 @@ export function CoverflowCarousel({
       )}
 
       {showPagination && (
-        <div className="mt-6 flex items-center justify-center gap-2">
+        <div className="navigation-circles absolute bottom-3 left-1/2 -translate-x-1/2 z-[250] flex items-center justify-center gap-2">
           {slides.map((_, index) => (
             <button
               key={index}
@@ -535,8 +535,8 @@ export function CoverflowCarousel({
               aria-current={index === selected}
               onClick={() => goTo(index)}
               className={cn(
-                "size-2 rounded-full bg-foreground transition-opacity",
-                index === selected ? "opacity-100" : "opacity-30",
+                "size-2 rounded-full bg-foreground transition-opacity shadow-sm",
+                index === selected ? "opacity-100 scale-125" : "opacity-40",
               )}
             />
           ))}

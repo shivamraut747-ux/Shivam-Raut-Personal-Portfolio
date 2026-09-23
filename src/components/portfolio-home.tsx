@@ -430,12 +430,12 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
                   </p>
                 </div>
 
-                <div className="skills-showcase-card" aria-label="Skills coverflow carousel">
+                <div className="carousel-container skills-showcase-card" aria-label="Skills coverflow carousel">
                   <CoverflowCarousel
                     slides={SKILLS_CAROUSEL_SLIDES}
                     autoPlay
                     autoPlaySpeed={0.4}
-                    cardWidth="clamp(130px, 21.7cqw, 240px)"
+                    cardWidth="clamp(140px, 21.74vw, 420px)"
                     cardClassName="skills-carousel-card"
                   />
                 </div>
