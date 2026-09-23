@@ -11,6 +11,7 @@ const useIsoLayoutEffect =
 export interface CoverflowSlide {
   src?: string;
   icon?: React.ReactNode;
+  content?: React.ReactNode;
   alt: string;
   title?: string;
   subtitle?: string;
@@ -451,12 +452,14 @@ export function CoverflowCarousel({
                 aria-roledescription="slide"
                 aria-label={`${index + 1} of ${count}`}
                 className={cn(
-                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-xl will-change-transform flex items-center justify-center",
+                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-xl will-change-transform",
                   cardClassName,
                 )}
                 style={{ width: "var(--cf-card)" }}
               >
-                {slide.icon ? (
+                {slide.content ? (
+                  <div className="h-full w-full select-none">{slide.content}</div>
+                ) : slide.icon ? (
                   <div className="flex h-full w-full select-none items-center justify-center p-3">
                     {slide.icon}
                   </div>
@@ -466,7 +469,7 @@ export function CoverflowCarousel({
                     src={slide.src}
                     alt={slide.alt}
                     draggable={false}
-                    className="h-full w-full select-none object-contain"
+                    className="h-full w-full select-none object-cover"
                   />
                 )}
               </div>
