@@ -4,6 +4,8 @@ import { ReactLenis } from "lenis/react";
 import shivamPhoto from "@/assets/shivam-raut-photo.jpg";
 import Component, { ProjectData } from "@/components/ui/stacking-card";
 import { GlowCard } from "@/components/ui/glow-card";
+import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
+import { SKILLS_CAROUSEL_SLIDES } from "@/components/ui/demo";
 
 /* =========================================================================
    PROJECTS DATA (4 Projects)
@@ -428,22 +430,15 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
                   </p>
                 </div>
 
-                <div className="skills-catalog" aria-label="Skills catalog">
-                  <div className="skill-cards">
-                    {skillsList.map((skill) => (
-                      <GlowCard
-                        key={skill.name}
-                        customSize={true}
-                        glowColor={skill.glowColor ?? "blue"}
-                        className="skill-card"
-                      >
-                        <div className="skill-icon-wrap">
-                          {skill.icon}
-                        </div>
-                        <span className="skill-label">{skill.name}</span>
-                      </GlowCard>
-                    ))}
-                  </div>
+                <div className="skills-carousel-wrap" aria-label="Skills coverflow carousel">
+                  <CoverflowCarousel
+                    slides={SKILLS_CAROUSEL_SLIDES}
+                    showCaption
+                    autoPlay
+                    autoPlaySpeed={0.4}
+                    cardWidth="clamp(135px, 16vw, 190px)"
+                    cardClassName="skills-carousel-card"
+                  />
                 </div>
               </div>
             </div>

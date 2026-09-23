@@ -1,46 +1,85 @@
-import React from 'react';
-import Component from '@/components/ui/stacking-card';
+"use client";
 
-const projects = [
+import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
+
+const DEVICON = (path: string) =>
+  `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${path}`;
+
+export const SKILLS_CAROUSEL_SLIDES = [
   {
-    title: 'Matthias Leidinger',
-    description:
-      'Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.',
-    link: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80',
-    color: '#5196fd',
+    src: DEVICON("mysql/mysql-original.svg"),
+    alt: "MySQL logo",
+    title: "MySQL",
+    subtitle: "Database",
   },
   {
-    title: 'Clément Chapillon',
-    description:
-      'This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes”—so French photographer Clément.',
-    link: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80',
-    color: '#8f89ff',
+    src: DEVICON("mongodb/mongodb-original.svg"),
+    alt: "MongoDB logo",
+    title: "MongoDB",
+    subtitle: "Database",
   },
   {
-    title: 'Zissou',
-    description:
-      'Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal.',
-    link: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
-    color: '#13006c',
+    src: DEVICON("html5/html5-original.svg"),
+    alt: "HTML5 logo",
+    title: "HTML",
+    subtitle: "Markup",
   },
   {
-    title: 'Mathias Svold and Ulrik Hasemann',
-    description:
-      'The coastlines of Denmark are documented in tonal colors in a pensive new series by Danish photographers Ulrik Hasemann and Mathias Svold; an ongoing project investigating how humans interact with and disrupt the Danish coast.',
-    link: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
-    color: '#ed649e',
+    src: DEVICON("css3/css3-original.svg"),
+    alt: "CSS3 logo",
+    title: "CSS",
+    subtitle: "Styling",
   },
   {
-    title: 'Mark Rammers',
-    description:
-      'Dutch photographer Mark Rammers has shared with IGNANT the first chapter of his latest photographic project, ‘all over again’—captured while in residency at Hektor, an old farm in Los Valles, Lanzarote.',
-    link: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
-    color: '#fd521a',
+    src: DEVICON("javascript/javascript-original.svg"),
+    alt: "JavaScript logo",
+    title: "JavaScript",
+    subtitle: "Language",
+  },
+  {
+    src: DEVICON("python/python-original.svg"),
+    alt: "Python logo",
+    title: "Python",
+    subtitle: "Language",
+  },
+  {
+    src: "/sql-logo.svg",
+    alt: "SQL logo",
+    title: "SQL",
+    subtitle: "Query Language",
+  },
+  {
+    src: DEVICON("git/git-original.svg"),
+    alt: "Git logo",
+    title: "Git",
+    subtitle: "Version Control",
+  },
+  {
+    src: DEVICON("github/github-original.svg"),
+    alt: "GitHub logo",
+    title: "GitHub",
+    subtitle: "Hosting",
+  },
+  {
+    src: "/tableau-logo.svg",
+    alt: "Tableau logo",
+    title: "Tableau",
+    subtitle: "Data Viz",
   },
 ];
 
-function ComponentDemo() {
-  return <Component projects={projects} />;
+export default function DemoOne() {
+  return (
+    <div className="w-full overflow-hidden bg-background py-6">
+      <CoverflowCarousel
+        slides={SKILLS_CAROUSEL_SLIDES}
+        showCaption
+        autoPlay
+        autoPlaySpeed={0.4}
+        cardClassName="bg-white p-8"
+      />
+    </div>
+  );
 }
 
-export { ComponentDemo as DemoOne };
+export { DemoOne };
