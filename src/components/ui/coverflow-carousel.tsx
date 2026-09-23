@@ -377,12 +377,10 @@ export function CoverflowCarousel({
     return () => observer.disconnect();
   }, [paint]);
 
-  const initialDelayTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
   // Handle autoplay with IntersectionObserver:
   // When off-screen, autoplay stays paused and resets to index 0 (Python).
   // When user opens/scrolls to the skills section, card 0 (Python) is displayed 1st,
-  // then after a short pause, continuous autoplay smoothly starts.
+  // and continuous autoplay starts immediately without delay.
   React.useEffect(() => {
     const frame = frameRef.current;
     if (!frame) return;
@@ -402,19 +400,12 @@ export function CoverflowCarousel({
             setSelected(0);
             paint();
 
-            stopAutoPlay();
-            if (autoPlay) {
-              if (initialDelayTimeoutRef.current) clearTimeout(initialDelayTimeoutRef.current);
-              initialDelayTimeoutRef.current = setTimeout(() => {
-                if (!isDraggingRef.current && !isHoveredRef.current) {
-                  startAutoPlay();
-                }
-              }, 1600);
+            if (autoPlay && !isDraggingRef.current && !isHoveredRef.current) {
+              startAutoPlay();
             }
           } else {
             // When off-screen, stop autoplay and reset to 1st card (Python)
             stopAutoPlay();
-            if (initialDelayTimeoutRef.current) clearTimeout(initialDelayTimeoutRef.current);
             posRef.current = 0;
             targetRef.current = 0;
             setSelected(0);
@@ -429,7 +420,6 @@ export function CoverflowCarousel({
     return () => {
       observer.disconnect();
       stopAutoPlay();
-      if (initialDelayTimeoutRef.current) clearTimeout(initialDelayTimeoutRef.current);
     };
   }, [autoPlay, paint, startAutoPlay, stopAutoPlay]);
 
@@ -439,7 +429,6 @@ export function CoverflowCarousel({
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       if (rafAutoRef.current !== null) cancelAnimationFrame(rafAutoRef.current);
       if (resumeTimeoutRef.current !== null) clearTimeout(resumeTimeoutRef.current);
-      if (initialDelayTimeoutRef.current !== null) clearTimeout(initialDelayTimeoutRef.current);
     };
   }, []);
 
