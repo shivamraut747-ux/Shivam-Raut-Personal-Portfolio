@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 630 630">
+  <defs>
+    <linearGradient id="pbi_grad1" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop stop-color="#EBBB14" offset="0%"/>
+      <stop stop-color="#B25400" offset="100%"/>
+    </linearGradient>
+    <linearGradient id="pbi_grad2" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop stop-color="#F9E583" offset="0%"/>
+      <stop stop-color="#DE9800" offset="100%"/>
+    </linearGradient>
+    <linearGradient id="pbi_grad3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop stop-color="#F9E68B" offset="0%"/>
+      <stop stop-color="#F3CD32" offset="100%"/>
+    </linearGradient>
+    <filter id="pbi_shadow" x="-20%" y="-10%" width="140%" height="120%">
+      <feDropShadow dx="10" dy="5" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g transform="translate(77.5, 0)">
+    <!-- Right / Tallest Bar (Deep Gold / Amber) -->
+    <rect fill="url(#pbi_grad1)" x="256" y="0" width="219" height="630" rx="26"/>
+    <!-- Middle Bar (Warm Yellow / Gold) with shadow -->
+    <path fill="url(#pbi_grad2)" filter="url(#pbi_shadow)" d="M153,157 L320,157 C334.36,157 346,168.64 346,183 L346,604 C346,618.36 334.36,630 320,630 L153,630 C138.64,630 127,618.36 127,604 L127,183 C127,168.64 138.64,157 153,157 Z"/>
+    <!-- Left / Shortest Bar (Bright Yellow) with shadow -->
+    <path fill="url(#pbi_grad3)" filter="url(#pbi_shadow)" d="M26,315 L193,315 C207.36,315 219,326.64 219,341 L219,604 C219,618.36 207.36,630 193,630 L26,630 C11.64,630 0,618.36 0,604 L0,341 C0,326.64 11.64,315 26,315 Z"/>
+  </g>
+</svg>

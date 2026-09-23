@@ -47,6 +47,10 @@ const SKILLS_CONFIG: SkillDef[] = [
     logo: "/excel-logo.svg",
   },
   {
+    name: "Power BI",
+    logo: "/power-bi-logo.svg",
+  },
+  {
     name: "JavaScript",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   },
