@@ -43,6 +43,10 @@ const SKILLS_CONFIG: SkillDef[] = [
     logo: "/tableau-logo.svg",
   },
   {
+    name: "Excel",
+    logo: "/excel-logo.svg",
+  },
+  {
     name: "JavaScript",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   },
