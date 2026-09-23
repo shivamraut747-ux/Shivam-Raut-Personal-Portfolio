@@ -3,7 +3,6 @@ import type { CoverflowSlide } from "@/components/ui/coverflow-carousel";
 
 interface SkillDef {
   name: string;
-  subtitle: string;
   logo: string;
 }
 
@@ -11,7 +10,7 @@ const GitHubIcon = () => (
   <svg
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="h-full w-full select-none text-neutral-900 dark:text-neutral-100"
+    className="h-full w-full select-none text-white"
     aria-hidden="true"
   >
     <path
@@ -25,52 +24,42 @@ const GitHubIcon = () => (
 const SKILLS_CONFIG: SkillDef[] = [
   {
     name: "Python",
-    subtitle: "AI/ML & Data Science",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
   },
   {
     name: "SQL",
-    subtitle: "Data Extraction & Queries",
     logo: "/sql-logo.svg",
   },
   {
     name: "MySQL",
-    subtitle: "Relational Database",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
   },
   {
     name: "MongoDB",
-    subtitle: "NoSQL Document Store",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
   },
   {
     name: "Tableau",
-    subtitle: "Visual Dashboards & BI",
     logo: "/tableau-logo.svg",
   },
   {
     name: "JavaScript",
-    subtitle: "Modern Web & ES6+",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   },
   {
     name: "HTML5",
-    subtitle: "Semantic Structure",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
   },
   {
     name: "CSS3",
-    subtitle: "Responsive UI & Layouts",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
   },
   {
     name: "Git",
-    subtitle: "Distributed VCS",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
   },
   {
     name: "GitHub",
-    subtitle: "Repos & Collaboration",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
   },
 ];
@@ -78,9 +67,11 @@ const SKILLS_CONFIG: SkillDef[] = [
 export const SKILLS_CAROUSEL_SLIDES: CoverflowSlide[] = SKILLS_CONFIG.map((skill) => ({
   alt: `${skill.name} skill card`,
   title: skill.name,
-  subtitle: skill.subtitle,
   content: (
-    <div className="relative flex h-full w-full flex-col items-center justify-between rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm transition-colors duration-300 dark:border-neutral-800 dark:bg-neutral-900 select-none">
+    <div
+      className="relative flex h-full w-full flex-col items-center justify-between rounded-2xl border border-white/10 p-4 shadow-xl select-none"
+      style={{ backgroundColor: "#111111" }}
+    >
       {/* Center Logo - 55-65% width, centered, no wrapping box */}
       <div className="flex flex-1 w-full items-center justify-center pt-2">
         {skill.name === "GitHub" ? (
@@ -99,7 +90,7 @@ export const SKILLS_CAROUSEL_SLIDES: CoverflowSlide[] = SKILLS_CONFIG.map((skill
 
       {/* Bottom: Skill Name */}
       <div className="w-full text-center pb-2">
-        <div className="text-[15px] sm:text-[17px] font-bold tracking-tight text-neutral-900 dark:text-neutral-100 leading-tight">
+        <div className="text-[15px] sm:text-[17px] font-bold tracking-tight text-white leading-tight">
           {skill.name}
         </div>
       </div>

@@ -499,7 +499,31 @@ export function CoverflowCarousel({
         )}
       </div>
 
-
+      {showCaption && active?.title && (
+        <div
+          key={selected}
+          className="mt-2 flex flex-col items-center px-6 duration-300 animate-in fade-in"
+        >
+          <p className="text-[17px] font-semibold tracking-tight text-foreground">
+            {active.title}
+          </p>
+          {active.subtitle && (
+            <p className="mt-1 text-[13.5px] text-muted-foreground">
+              {active.subtitle}
+            </p>
+          )}
+          {active.meta && active.meta.length > 0 && (
+            <dl className="mt-8 w-full max-w-[230px] text-[12px]">
+              {active.meta.map((row) => (
+                <div key={row.label} className="flex justify-between py-[5px]">
+                  <dt className="text-muted-foreground">{row.label}</dt>
+                  <dd className="font-medium text-foreground">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </div>
+      )}
 
       {showPagination && (
         <div className="mt-6 flex items-center justify-center gap-2">
