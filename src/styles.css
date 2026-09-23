@@ -241,35 +241,16 @@
 
 .skills-carousel-card {
   border-radius: 20px;
-  box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
 .dark .skills-carousel-card {
-  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.skills-caption-title {
-  color: #111111;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.dark .skills-caption-title {
-  color: #ffffff !important;
-}
-
-.skills-caption-sub {
-  color: #64748b;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.dark .skills-caption-sub {
-  color: #94a3b8 !important;
+  background: #171717 !important;
+  border: 1px solid #262626 !important;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5) !important;
 }
 
 .skill-cards {

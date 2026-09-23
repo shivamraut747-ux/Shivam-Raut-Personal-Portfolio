@@ -4,116 +4,74 @@ import type { CoverflowSlide } from "@/components/ui/coverflow-carousel";
 interface SkillDef {
   name: string;
   subtitle: string;
-  badge: string;
   logo: string;
-  bgGradient: string;
-  accentColor: string;
-  badgeBg: string;
-  badgeColor: string;
-  isInvertLogo?: boolean;
 }
+
+const GitHubIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-full w-full select-none text-neutral-900 dark:text-neutral-100"
+    aria-hidden="true"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+    />
+  </svg>
+);
 
 const SKILLS_CONFIG: SkillDef[] = [
   {
     name: "Python",
     subtitle: "AI/ML & Data Science",
-    badge: "Language",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #172d42 0%, #0d1a27 55%, #081019 100%)",
-    accentColor: "#3776ab",
-    badgeBg: "rgba(55, 118, 171, 0.28)",
-    badgeColor: "#7dd3fc",
   },
   {
     name: "SQL",
     subtitle: "Data Extraction & Queries",
-    badge: "Database",
     logo: "/sql-logo.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #163248 0%, #0d2030 55%, #07131d 100%)",
-    accentColor: "#0284c7",
-    badgeBg: "rgba(2, 132, 199, 0.28)",
-    badgeColor: "#38bdf8",
   },
   {
     name: "MySQL",
     subtitle: "Relational Database",
-    badge: "Database",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #122d3b 0%, #0b1e28 55%, #06121a 100%)",
-    accentColor: "#00758f",
-    badgeBg: "rgba(0, 117, 143, 0.28)",
-    badgeColor: "#22d3ee",
   },
   {
     name: "MongoDB",
     subtitle: "NoSQL Document Store",
-    badge: "Database",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #14351f 0%, #0c2314 55%, #06150c 100%)",
-    accentColor: "#47a248",
-    badgeBg: "rgba(71, 162, 72, 0.28)",
-    badgeColor: "#4ade80",
   },
   {
     name: "Tableau",
     subtitle: "Visual Dashboards & BI",
-    badge: "Data Viz",
     logo: "/tableau-logo.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #2e1c3a 0%, #1d1126 55%, #110917 100%)",
-    accentColor: "#e8762d",
-    badgeBg: "rgba(232, 118, 45, 0.28)",
-    badgeColor: "#fb923c",
   },
   {
     name: "JavaScript",
     subtitle: "Modern Web & ES6+",
-    badge: "Language",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #302a0e 0%, #201c08 55%, #131104 100%)",
-    accentColor: "#f7df1e",
-    badgeBg: "rgba(247, 223, 30, 0.26)",
-    badgeColor: "#fde047",
   },
   {
     name: "HTML5",
     subtitle: "Semantic Structure",
-    badge: "Markup",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #351b12 0%, #23110a 55%, #150905 100%)",
-    accentColor: "#e34f26",
-    badgeBg: "rgba(227, 79, 38, 0.28)",
-    badgeColor: "#fb923c",
   },
   {
     name: "CSS3",
     subtitle: "Responsive UI & Layouts",
-    badge: "Styling",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #13273e 0%, #0c1a2b 55%, #07101c 100%)",
-    accentColor: "#1572b6",
-    badgeBg: "rgba(21, 114, 182, 0.28)",
-    badgeColor: "#60a5fa",
   },
   {
     name: "Git",
     subtitle: "Distributed VCS",
-    badge: "DevTools",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #351914 0%, #220f0c 55%, #140806 100%)",
-    accentColor: "#f05032",
-    badgeBg: "rgba(240, 80, 50, 0.28)",
-    badgeColor: "#f87171",
   },
   {
     name: "GitHub",
     subtitle: "Repos & Collaboration",
-    badge: "Platform",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-    bgGradient: "radial-gradient(circle at 50% 20%, #292c3a 0%, #1a1c27 55%, #101119 100%)",
-    accentColor: "#c084fc",
-    badgeBg: "rgba(192, 132, 252, 0.25)",
-    badgeColor: "#e9d5ff",
-    isInvertLogo: true,
   },
 ];
 
@@ -122,61 +80,29 @@ export const SKILLS_CAROUSEL_SLIDES: CoverflowSlide[] = SKILLS_CONFIG.map((skill
   title: skill.name,
   subtitle: skill.subtitle,
   content: (
-    <div
-      className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl p-4 sm:p-5 select-none text-left"
-      style={{
-        background: skill.bgGradient,
-        border: "1px solid rgba(255, 255, 255, 0.12)",
-        boxShadow: "inset 0 1px 0 0 rgba(255, 255, 255, 0.15)",
-      }}
-    >
-      {/* Decorative ambient color glow */}
-      <div
-        className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full blur-2xl opacity-40"
-        style={{ background: skill.accentColor }}
-      />
-
-      {/* Top Header: Badge */}
-      <div className="relative z-10 flex items-center justify-between">
-        <span
-          className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10.5px] sm:text-[11px] font-semibold tracking-wider uppercase backdrop-blur-sm"
-          style={{
-            backgroundColor: skill.badgeBg,
-            color: skill.badgeColor,
-            border: `1px solid ${skill.badgeColor}33`,
-          }}
-        >
-          {skill.badge}
-        </span>
-      </div>
-
-      {/* Center: Brand Logo */}
-      <div className="relative z-10 flex flex-1 items-center justify-center py-2 sm:py-3">
-        <div
-          className="relative flex items-center justify-center rounded-2xl p-2.5 sm:p-3 transition-transform duration-300"
-          style={{
-            background: "rgba(255, 255, 255, 0.04)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: `0 12px 28px -6px ${skill.accentColor}44`,
-          }}
-        >
+    <div className="relative flex h-full w-full flex-col items-center justify-between rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm transition-colors duration-300 dark:border-neutral-800 dark:bg-neutral-900 select-none">
+      {/* Center Logo - 55-65% width, centered, no wrapping box */}
+      <div className="flex flex-1 w-full items-center justify-center pt-2">
+        {skill.name === "GitHub" ? (
+          <div className="flex h-[60%] w-[60%] items-center justify-center">
+            <GitHubIcon />
+          </div>
+        ) : (
           <img
             src={skill.logo}
             alt={skill.name}
-            className={`h-12 w-12 sm:h-14 sm:w-14 select-none object-contain drop-shadow ${
-              skill.isInvertLogo ? "filter invert brightness-125" : ""
-            }`}
+            className="h-[60%] w-[60%] select-none object-contain transition-transform duration-300 group-hover:scale-105"
             draggable={false}
           />
-        </div>
+        )}
       </div>
 
-      {/* Bottom Footer: Title & Subtitle */}
-      <div className="relative z-10 text-center">
-        <div className="text-[16px] sm:text-[18px] font-bold tracking-tight text-white leading-tight">
+      {/* Bottom: Skill Name & Subtitle */}
+      <div className="w-full text-center pb-1">
+        <div className="text-[15px] sm:text-[17px] font-bold tracking-tight text-neutral-900 dark:text-neutral-100 leading-tight">
           {skill.name}
         </div>
-        <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-white/70 truncate">
+        <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-neutral-500 dark:text-neutral-400 truncate">
           {skill.subtitle}
         </div>
       </div>

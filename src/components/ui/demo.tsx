@@ -150,7 +150,7 @@ export default function DemoOne() {
   return (
     <div className="w-full overflow-hidden bg-background py-6">
       <div className="mx-auto max-w-5xl rounded-3xl border border-border bg-card p-6 shadow-xl">
-        <CoverflowCarousel slides={SLIDES} showCaption autoPlay autoPlaySpeed={0.4} />
+        <CoverflowCarousel slides={SLIDES} autoPlay autoPlaySpeed={0.4} />
       </div>
     </div>
   );
