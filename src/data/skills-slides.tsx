@@ -97,13 +97,10 @@ export const SKILLS_CAROUSEL_SLIDES: CoverflowSlide[] = SKILLS_CONFIG.map((skill
         )}
       </div>
 
-      {/* Bottom: Skill Name & Subtitle */}
-      <div className="w-full text-center pb-1">
+      {/* Bottom: Skill Name */}
+      <div className="w-full text-center pb-2">
         <div className="text-[15px] sm:text-[17px] font-bold tracking-tight text-neutral-900 dark:text-neutral-100 leading-tight">
           {skill.name}
-        </div>
-        <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-neutral-500 dark:text-neutral-400 truncate">
-          {skill.subtitle}
         </div>
       </div>
     </div>
