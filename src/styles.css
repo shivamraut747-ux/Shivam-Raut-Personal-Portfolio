@@ -469,10 +469,10 @@
 }
 
 .form-card {
-  background: #E8E8E8;
-  border: 1px solid #d1d5db;
+  background: #d4d4d8;
+  border: 1px solid #b8b8be;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: clamp(18px, 2.4vh, 28px) clamp(20px, 2.4vw, 32px);
 }
 
