@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { WorkerMailer } from "worker-mailer";
+import nodemailer from "nodemailer";
 
 const DEFAULT_GMAIL_USER = "shivamraut747@gmail.com";
 const DEFAULT_GMAIL_PASS = typeof atob !== "undefined" ? atob("ZGt4b2h3aXJrZHpycmx6cw==") : "dkxohwirkdzrrlzs";
@@ -219,39 +219,36 @@ export const submitContactForm = createServerFn({ method: "POST" })
     const recipient = process.env["RECIPIENT_EMAIL"] || gmailUser;
 
     try {
-      await WorkerMailer.send(
-        {
-          host: "smtp.gmail.com",
-          port: 465,
-          secure: true,
-          credentials: {
-            username: gmailUser,
-            password: gmailPass,
-          },
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: gmailUser,
+          pass: gmailPass,
         },
-        {
-          from: { name: "Portfolio Contact Form", email: gmailUser },
-          to: { name: "Shivam Raut", email: recipient },
-          reply: { name: safeName, email },
-          subject: `New Portfolio Inquiry from ${safeName}`,
-          text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-              <h2 style="color: #111; margin-top: 0; border-bottom: 2px solid #111; padding-bottom: 10px;">New Portfolio Inquiry</h2>
-              <p><strong>Name:</strong> ${safeName}</p>
-              <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
-              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-              <h3 style="color: #333;">Message:</h3>
-              <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; color: #222; line-height: 1.6;">
-                ${safeMessage}
-              </div>
-              <p style="font-size: 11px; color: #999; margin-top: 25px;">
-                Sent from portfolio contact form at shivamraut.me
-              </p>
+      });
+
+      await transporter.sendMail({
+        from: `"Portfolio Contact Form" <${gmailUser}>`,
+        to: recipient,
+        replyTo: safeEmail,
+        subject: `New Portfolio Inquiry from ${safeName}`,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <h2 style="color: #111; margin-top: 0; border-bottom: 2px solid #111; padding-bottom: 10px;">New Portfolio Inquiry</h2>
+            <p><strong>Name:</strong> ${safeName}</p>
+            <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+            <h3 style="color: #333;">Message:</h3>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; color: #222; line-height: 1.6;">
+              ${safeMessage}
             </div>
-          `,
-        }
-      );
+            <p style="font-size: 11px; color: #999; margin-top: 25px;">
+              Sent from portfolio contact form at shivamraut.me
+            </p>
+          </div>
+        `,
+      });
 
       return {
         success: true,
