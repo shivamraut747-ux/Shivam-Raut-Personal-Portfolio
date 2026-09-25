@@ -6,6 +6,7 @@ import Component, { ProjectData } from "@/components/ui/stacking-card";
 import { GlowCard } from "@/components/ui/glow-card";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 import { SKILLS_CAROUSEL_SLIDES } from "@/components/ui/demo";
+import { submitContactForm } from "@/lib/contact-server-fn";
 
 /* =========================================================================
    PROJECTS DATA (4 Projects)
@@ -436,43 +437,28 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         });
       }
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
+      const result = await submitContactForm({
+        data: {
           name: contactForm.name.trim(),
           email: contactForm.email.trim(),
           message: contactForm.message.trim(),
           website: contactForm.website,
           recaptchaToken,
-        }),
+        },
       });
 
-      let data: any = null;
-      try {
-        data = await response.json();
-      } catch {
-        data = null;
-      }
-
-      if (response.ok && data?.success) {
+      if (result.success) {
         setFormStatus({
           type: "success",
-          message: data.message || "Thank you! Your message has been sent successfully.",
+          message: result.message || "Thank you! Your message has been sent successfully.",
         });
         setContactForm({ name: "", email: "", message: "", website: "" });
         setFormTouched({});
         setFormErrors({});
       } else {
-        const errorMsg =
-          data?.error ||
-          (data?.message ?? "Failed to send message. Please try again or reach out to shivamraut747@gmail.com.");
         setFormStatus({
           type: "error",
-          message: errorMsg,
+          message: result.error || "Failed to send message. Please try again or reach out to shivamraut747@gmail.com.",
         });
       }
     } catch {
