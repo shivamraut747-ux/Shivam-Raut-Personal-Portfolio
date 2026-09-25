@@ -536,6 +536,61 @@
   line-height: 1.45;
 }
 
+.form-field.has-error input,
+.form-field.has-error textarea {
+  border-color: #dc2626 !important;
+}
+
+.field-error {
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.honeypot-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
+}
+
+.contact-form-alert {
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.contact-form-alert.success {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.contact-form-alert.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.dark .contact-form-alert.success {
+  background-color: #052e16 !important;
+  color: #86efac !important;
+  border-color: #166534 !important;
+}
+
+.dark .contact-form-alert.error {
+  background-color: #450a0a !important;
+  color: #fca5a5 !important;
+  border-color: #991b1b !important;
+}
+
 .form-submit-row {
   display: flex;
   justify-content: flex-end;

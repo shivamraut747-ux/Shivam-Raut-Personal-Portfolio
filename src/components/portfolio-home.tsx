@@ -313,15 +313,168 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
     }
   }, [targetSection]);
 
-  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // Contact Form State & Validation (Security Hardened)
+  const [contactForm, setContactForm] = React.useState({
+    name: "",
+    email: "",
+    message: "",
+    website: "", // Honeypot trap
+  });
+  const [formErrors, setFormErrors] = React.useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
+  const [formTouched, setFormTouched] = React.useState<{
+    name?: boolean;
+    email?: boolean;
+    message?: boolean;
+  }>({});
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [formStatus, setFormStatus] = React.useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+  const validateField = (field: "name" | "email" | "message", value: string) => {
+    let error: string | undefined;
+    const trimmed = value.trim();
+
+    if (field === "name") {
+      if (!trimmed) {
+        error = "Name is required.";
+      } else if (trimmed.length < 2) {
+        error = "Name must be at least 2 characters.";
+      } else if (trimmed.length > 100) {
+        error = "Name cannot exceed 100 characters.";
+      }
+    } else if (field === "email") {
+      if (!trimmed) {
+        error = "Email address is required.";
+      } else if (!emailRegex.test(trimmed)) {
+        error = "Please enter a valid email address.";
+      } else if (trimmed.length > 254) {
+        error = "Email address is too long.";
+      }
+    } else if (field === "message") {
+      if (!trimmed) {
+        error = "Message is required.";
+      } else if (trimmed.length < 10) {
+        error = "Message must be at least 10 characters.";
+      } else if (trimmed.length > 2000) {
+        error = "Message cannot exceed 2000 characters.";
+      }
+    }
+
+    setFormErrors((prev) => ({ ...prev, [field]: error }));
+    return !error;
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({ ...prev, [name]: value }));
+    if (formTouched[name as "name" | "email" | "message"]) {
+      validateField(name as "name" | "email" | "message", value);
+    }
+  };
+
+  const handleInputBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormTouched((prev) => ({ ...prev, [name]: true }));
+    validateField(name as "name" | "email" | "message", value);
+  };
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "");
-    const message = String(data.get("message") ?? "");
-    const mailtoUrl = `mailto:shivamraut747@gmail.com?subject=${encodeURIComponent(
-      name ? `Portfolio inquiry from ${name}` : "Portfolio inquiry"
-    )}&body=${encodeURIComponent(message)}`;
-    window.location.href = mailtoUrl;
+    setFormStatus(null);
+
+    // Trigger validation across all fields
+    const isNameValid = validateField("name", contactForm.name);
+    const isEmailValid = validateField("email", contactForm.email);
+    const isMessageValid = validateField("message", contactForm.message);
+    setFormTouched({ name: true, email: true, message: true });
+
+    if (!isNameValid || !isEmailValid || !isMessageValid) {
+      setFormStatus({
+        type: "error",
+        message: "Please correct the highlighted errors before submitting.",
+      });
+      return;
+    }
+
+    // SECURITY LAYER 4: Honeypot trap check
+    if (contactForm.website.trim() !== "") {
+      // Bot triggered honeypot; pretend to succeed so bots do not retry
+      setFormStatus({
+        type: "success",
+        message: "Thank you! Your message has been sent successfully.",
+      });
+      setContactForm({ name: "", email: "", message: "", website: "" });
+      setFormTouched({});
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // SECURITY LAYER 2: reCAPTCHA v3 token generation if configured
+      let recaptchaToken = "";
+      const siteKey = (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY;
+      if (
+        siteKey &&
+        typeof (window as any).grecaptcha !== "undefined"
+      ) {
+        recaptchaToken = await (window as any).grecaptcha.execute(siteKey, {
+          action: "contact_submit",
+        });
+      }
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: contactForm.name.trim(),
+          email: contactForm.email.trim(),
+          message: contactForm.message.trim(),
+          website: contactForm.website,
+          recaptchaToken,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setFormStatus({
+          type: "success",
+          message: data.message || "Thank you! Your message has been sent successfully.",
+        });
+        setContactForm({ name: "", email: "", message: "", website: "" });
+        setFormTouched({});
+        setFormErrors({});
+      } else {
+        setFormStatus({
+          type: "error",
+          message: data.error || "Failed to send message. Please try again.",
+        });
+      }
+    } catch {
+      // Graceful fallback to mailto if backend server is not running or offline
+      const mailtoUrl = `mailto:shivamraut747@gmail.com?subject=${encodeURIComponent(
+        `Portfolio inquiry from ${contactForm.name.trim()}`
+      )}&body=${encodeURIComponent(contactForm.message.trim())}`;
+      window.location.href = mailtoUrl;
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -522,45 +675,102 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
                     <div className="form-card">
                       <h2 className="form-section-title">Send me an email</h2>
 
-                      <form className="contact-form" onSubmit={handleContactSubmit}>
+                      {formStatus && (
+                        <div
+                          className={`contact-form-alert ${formStatus.type}`}
+                          role="alert"
+                          aria-live="polite"
+                        >
+                          {formStatus.message}
+                        </div>
+                      )}
+
+                      <form className="contact-form" onSubmit={handleContactSubmit} noValidate>
+                        {/* SECURITY LAYER 4: Honeypot field (hidden from humans, traps bots) */}
+                        <div className="honeypot-field" aria-hidden="true">
+                          <label htmlFor="contact-website">Website</label>
+                          <input
+                            id="contact-website"
+                            name="website"
+                            type="text"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={contactForm.website}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+
                         <div className="form-row-2col">
-                          <div className="form-field">
+                          <div className={`form-field ${formErrors.name && formTouched.name ? "has-error" : ""}`}>
                             <label htmlFor="contact-name">Name</label>
                             <input
                               id="contact-name"
                               name="name"
                               type="text"
                               required
+                              minLength={2}
+                              maxLength={100}
                               placeholder="Your name"
+                              value={contactForm.name}
+                              onChange={handleInputChange}
+                              onBlur={handleInputBlur}
                             />
+                            {formErrors.name && formTouched.name && (
+                              <span className="field-error" role="alert">
+                                {formErrors.name}
+                              </span>
+                            )}
                           </div>
 
-                          <div className="form-field">
+                          <div className={`form-field ${formErrors.email && formTouched.email ? "has-error" : ""}`}>
                             <label htmlFor="contact-email">Email</label>
                             <input
                               id="contact-email"
                               name="email"
                               type="email"
                               required
+                              maxLength={254}
                               placeholder="Your email address"
+                              value={contactForm.email}
+                              onChange={handleInputChange}
+                              onBlur={handleInputBlur}
                             />
+                            {formErrors.email && formTouched.email && (
+                              <span className="field-error" role="alert">
+                                {formErrors.email}
+                              </span>
+                            )}
                           </div>
                         </div>
 
-                        <div className="form-field">
+                        <div className={`form-field ${formErrors.message && formTouched.message ? "has-error" : ""}`}>
                           <label htmlFor="contact-message">Message</label>
                           <textarea
                             id="contact-message"
                             name="message"
                             rows={5}
                             required
+                            minLength={10}
+                            maxLength={2000}
                             placeholder="Your message..."
+                            value={contactForm.message}
+                            onChange={handleInputChange}
+                            onBlur={handleInputBlur}
                           />
+                          {formErrors.message && formTouched.message && (
+                            <span className="field-error" role="alert">
+                              {formErrors.message}
+                            </span>
+                          )}
                         </div>
 
                         <div className="form-submit-row">
-                          <button type="submit" className="contact-submit-btn">
-                            Send email
+                          <button
+                            type="submit"
+                            className="contact-submit-btn"
+                            disabled={isSubmitting}
+                          >
+                            {isSubmitting ? "Sending..." : "Send email"}
                           </button>
                         </div>
                       </form>

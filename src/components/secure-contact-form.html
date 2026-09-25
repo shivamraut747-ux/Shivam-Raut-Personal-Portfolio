@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Contact Form</title>
+  <!-- Google reCAPTCHA v3 script -->
+  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
+  <style>
+    .form-card {
+      background: #d4d4d8;
+      border: 1px solid #b8b8be;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      padding: clamp(18px, 2.4vh, 28px) clamp(20px, 2.4vw, 32px);
+      max-width: 520px;
+      margin: 40px auto;
+      font-family: Lato, Arial, sans-serif;
+    }
+    .form-section-title {
+      margin: 0 0 16px;
+      color: #000000;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .form-field label {
+      color: #000000;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #000000;
+      background: #ffffff;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: #000000;
+      opacity: 0.85;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: #000000;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+    }
+    .form-field.invalid input,
+    .form-field.invalid textarea {
+      border-color: #dc2626 !important;
+      background-color: #fffaf0;
+    }
+    .field-error {
+      color: #dc2626;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+    .form-field textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.45;
+    }
+    /* Honeypot field - visually hidden from human users */
+    .hp-field {
+      position: absolute !important;
+      left: -9999px !important;
+      top: -9999px !important;
+      opacity: 0 !important;
+      height: 0 !important;
+      width: 0 !important;
+      z-index: -1 !important;
+      pointer-events: none !important;
+    }
+    .form-submit-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+    .contact-submit-btn {
+      height: 42px;
+      padding: 0 28px;
+      background-color: #333333;
+      color: #ffffff;
+      border: 1px solid #333333;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+    .contact-submit-btn:hover:not(:disabled) {
+      background-color: #111111;
+      border-color: #111111;
+    }
+    .contact-submit-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    .form-status-alert {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+    }
+    .form-status-alert.success {
+      background-color: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      display: block;
+    }
+    .form-status-alert.error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-card">
+    <h2 class="form-section-title">Send me an email</h2>
+
+    <!-- Status message banner -->
+    <div id="form-alert" class="form-status-alert" role="alert" aria-live="polite"></div>
+
+    <form id="contact-form" novalidate>
+      <!-- SECURITY LAYER 4: Honeypot field (hidden from users, traps automated bots) -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="contact-website">Website (Leave empty)</label>
+        <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="form-row-2col">
+        <!-- Name Field -->
+        <div class="form-field" id="field-group-name">
+          <label for="contact-name">Name</label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            required
+            minlength="2"
+            maxlength="100"
+            placeholder="Your name"
+            autocomplete="name"
+          />
+          <span class="field-error" id="error-name" aria-live="polite"></span>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-field" id="field-group-email">
+          <label for="contact-email">Email</label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            required
+            maxlength="254"
+            placeholder="Your email address"
+            autocomplete="email"
+          />
+          <span class="field-error" id="error-email" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <!-- Message Field -->
+      <div class="form-field" id="field-group-message">
+        <label for="contact-message">Message</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          rows="5"
+          required
+          minlength="10"
+          maxlength="2000"
+          placeholder="Your message..."
+        ></textarea>
+        <span class="field-error" id="error-message" aria-live="polite"></span>
+      </div>
+
+      <!-- Submit Row -->
+      <div class="form-submit-row">
+        <button type="submit" id="submit-btn" class="contact-submit-btn">
+          Send email
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Configuration
+    const RECAPTCHA_SITE_KEY = "YOUR_RECAPTCHA_SITE_KEY"; // Replace with your Google reCAPTCHA v3 site key
+    const API_ENDPOINT = "/api/contact"; // Or full backend URL (e.g. https://api.shivamraut.me/api/contact)
+
+    // DOM References
+    const form = document.getElementById("contact-form");
+    const nameInput = document.getElementById("contact-name");
+    const emailInput = document.getElementById("contact-email");
+    const messageInput = document.getElementById("contact-message");
+    const websiteInput = document.getElementById("contact-website"); // Honeypot
+    const submitBtn = document.getElementById("submit-btn");
+    const alertBox = document.getElementById("form-alert");
+
+    const errorName = document.getElementById("error-name");
+    const errorEmail = document.getElementById("error-email");
+    const errorMessage = document.getElementById("error-message");
+
+    // Email regex matching standard RFC format
+    const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+    // ------------------------------------------------------------------------
+    // SECURITY LAYER 1: CLIENT-SIDE REAL-TIME VALIDATION
+    // ------------------------------------------------------------------------
+    function validateName() {
+      const val = nameInput.value.trim();
+      if (!val) {
+        setFieldError(nameInput, errorName, "Name is required.");
+        return false;
+      }
+      if (val.length < 2) {
+        setFieldError(nameInput, errorName, "Name must be at least 2 characters.");
+        return false;
+      }
+      if (val.length > 100) {
+        setFieldError(nameInput, errorName, "Name cannot exceed 100 characters.");
+        return false;
+      }
+      clearFieldError(nameInput, errorName);
+      return true;
+    }
+
+    function validateEmail() {
+      const val = emailInput.value.trim();
+      if (!val) {
+        setFieldError(emailInput, errorEmail, "Email address is required.");
+        return false;
+      }
+      if (!EMAIL_REGEX.test(val)) {
+        setFieldError(emailInput, errorEmail, "Please enter a valid email address.");
+        return false;
+      }
+      clearFieldError(emailInput, errorEmail);
+      return true;
+    }
+
+    function validateMessage() {
+      const val = messageInput.value.trim();
+      if (!val) {
+        setFieldError(messageInput, errorMessage, "Message is required.");
+        return false;
+      }
+      if (val.length < 10) {
+        setFieldError(messageInput, errorMessage, "Message must be at least 10 characters.");
+        return false;
+      }
+      if (val.length > 2000) {
+        setFieldError(messageInput, errorMessage, "Message cannot exceed 2000 characters.");
+        return false;
+      }
+      clearFieldError(messageInput, errorMessage);
+      return true;
+    }
+
+    function setFieldError(input, errorEl, message) {
+      input.parentElement.classList.add("invalid");
+      errorEl.textContent = message;
+    }
+
+    function clearFieldError(input, errorEl) {
+      input.parentElement.classList.remove("invalid");
+      errorEl.textContent = "";
+    }
+
+    // Attach real-time input listeners
+    nameInput.addEventListener("input", validateName);
+    nameInput.addEventListener("blur", validateName);
+    emailInput.addEventListener("input", validateEmail);
+    emailInput.addEventListener("blur", validateEmail);
+    messageInput.addEventListener("input", validateMessage);
+    messageInput.addEventListener("blur", validateMessage);
+
+    function showAlert(type, message) {
+      alertBox.className = `form-status-alert ${type}`;
+      alertBox.textContent = message;
+      alertBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function clearAlert() {
+      alertBox.className = "form-status-alert";
+      alertBox.textContent = "";
+    }
+
+    // ------------------------------------------------------------------------
+    // FORM SUBMISSION HANDLER
+    // ------------------------------------------------------------------------
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearAlert();
+
+      // Run client-side validation suite
+      const isNameValid = validateName();
+      const isEmailValid = validateEmail();
+      const isMessageValid = validateMessage();
+
+      if (!isNameValid || !isEmailValid || !isMessageValid) {
+        showAlert("error", "Please correct the highlighted errors before submitting.");
+        return;
+      }
+
+      // Check Honeypot silently
+      if (websiteInput.value.trim() !== "") {
+        // Bot triggered honeypot! Pretend to succeed
+        showAlert("success", "Thank you! Your message has been sent successfully.");
+        form.reset();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      try {
+        // SECURITY LAYER 2: Request invisible reCAPTCHA v3 token
+        let recaptchaToken = "";
+        if (typeof grecaptcha !== "undefined" && RECAPTCHA_SITE_KEY !== "YOUR_RECAPTCHA_SITE_KEY") {
+          recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "contact_submit" });
+        }
+
+        const payload = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          message: messageInput.value.trim(),
+          website: websiteInput.value, // Honeypot
+          recaptchaToken: recaptchaToken,
+        };
+
+        const response = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          showAlert("success", result.message || "Thank you! Your message has been sent successfully.");
+          form.reset();
+          clearFieldError(nameInput, errorName);
+          clearFieldError(emailInput, errorEmail);
+          clearFieldError(messageInput, errorMessage);
+        } else {
+          showAlert("error", result.error || "Failed to send message. Please try again.");
+        }
+      } catch (err) {
+        // Graceful error handling
+        showAlert(
+          "error",
+          "Network error connecting to contact server. Please reach out via LinkedIn or shivamraut747@gmail.com."
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send email";
+      }
+    });
+  </script>
+</body>
+</html>
