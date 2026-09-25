@@ -311,6 +311,7 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
       }, 120);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [targetSection]);
 
   // Contact Form State & Validation (Security Hardened)
@@ -450,9 +451,14 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         }),
       });
 
-      const data = await response.json();
+      let data: any = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
+      }
 
-      if (response.ok && data.success) {
+      if (response.ok && data?.success) {
         setFormStatus({
           type: "success",
           message: data.message || "Thank you! Your message has been sent successfully.",
@@ -461,13 +467,16 @@ export function PortfolioHome({ targetSection }: PortfolioHomeProps) {
         setFormTouched({});
         setFormErrors({});
       } else {
+        const errorMsg =
+          data?.error ||
+          (data?.message ?? "Failed to send message. Please try again or reach out to shivamraut747@gmail.com.");
         setFormStatus({
           type: "error",
-          message: data.error || "Failed to send message. Please try again.",
+          message: errorMsg,
         });
       }
     } catch {
-      // Graceful fallback to mailto if backend server is not running or offline
+      // Graceful fallback to mailto if network connection fails completely
       const mailtoUrl = `mailto:shivamraut747@gmail.com?subject=${encodeURIComponent(
         `Portfolio inquiry from ${contactForm.name.trim()}`
       )}&body=${encodeURIComponent(contactForm.message.trim())}`;

@@ -44,9 +44,27 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+import { handleContactOptions, handleContactSubmission } from "./lib/contact-handler";
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+
+      // Handle secure contact form API endpoint directly in Cloudflare Worker
+      if (url.pathname === "/api/contact") {
+        if (request.method === "OPTIONS") {
+          return handleContactOptions(request);
+        }
+        if (request.method === "POST") {
+          return await handleContactSubmission(request, env);
+        }
+        return new Response(JSON.stringify({ success: false, error: "Method not allowed" }), {
+          status: 405,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

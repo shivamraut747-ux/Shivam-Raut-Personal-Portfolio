@@ -67,7 +67,7 @@ export function SiteHeader({ activeItem }: { activeItem?: string }) {
       const headerHeight = window.innerWidth <= 900 ? 74 : 92;
       const scrollPosition = window.scrollY + headerHeight + 100;
 
-      let current = sectionIds[0];
+      let current = "about";
       for (const id of sectionIds) {
         const el = document.getElementById(id);
         if (el) {
