@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ReactLenis } from "lenis/react";
 import shivamPhoto from "@/assets/shivam-raut-photo.jpg";
+import faceDetectionDashboard from "@/assets/face-detection-dashboard.png";
 import Component, { ProjectData } from "@/components/ui/stacking-card";
 import { GlowCard } from "@/components/ui/glow-card";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
@@ -14,16 +15,20 @@ import { submitContactForm } from "@/lib/contact-server-fn";
 export const projectsData: ProjectData[] = [
   {
     title: "Face Detection System",
-    description: `A real-time facial recognition attendance system built with Python, Streamlit, and OpenCV.
+    description: `A real-time facial recognition attendance system built with Python, Streamlit, and OpenCV, with an admin-protected dashboard.
 
 Key features:
 - Live face recognition via webcam (face_recognition + OpenCV)
-- Auto-logs timestamped attendance with duplicate detection
-- Admin dashboard for students, subjects, and teachers`,
-    link: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80",
+- Auto-marks timestamped attendance per subject, with duplicate detection
+- Admin access with subject and teacher management
+- Student registry plus reports and analytics tabs`,
+    link: faceDetectionDashboard,
+    imageAlt: "Smart Attendance Identity Dashboard built with Streamlit",
+    imageFit: "contain",
     color: "#1e293b",
     tags: [
       "Python",
+      "Streamlit",
       "OpenCV",
       "Computer Vision",
       "Machine Learning",

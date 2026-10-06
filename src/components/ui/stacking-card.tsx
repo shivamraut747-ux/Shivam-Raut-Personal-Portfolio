@@ -12,6 +12,8 @@ export interface ProjectData {
   liveUrl?: string | undefined;
   githubUrl?: string | undefined;
   tags?: string[] | undefined;
+  imageAlt?: string | undefined;
+  imageFit?: 'cover' | 'contain' | undefined;
 }
 
 export interface CardProps {
@@ -26,6 +28,8 @@ export interface CardProps {
   liveUrl?: string | undefined;
   githubUrl?: string | undefined;
   tags?: string[] | undefined;
+  imageAlt?: string | undefined;
+  imageFit?: 'cover' | 'contain' | undefined;
 }
 
 export interface ComponentRootProps {
@@ -45,6 +49,8 @@ export const Card = ({
   liveUrl,
   githubUrl,
   tags,
+  imageAlt,
+  imageFit = 'cover',
 }: CardProps) => {
   const container = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -131,12 +137,20 @@ export const Card = ({
             )}
           </div>
 
-          <div className='relative w-full md:w-[44%] h-[200px] md:h-[310px] rounded-xl overflow-hidden shadow-inner bg-black/30 border border-white/10 flex-shrink-0'>
-            <motion.div className='w-full h-full' style={{ scale: imageScale }}>
+          <div
+            className={cn(
+              'relative w-full md:w-[44%] h-[200px] md:h-[310px] rounded-xl overflow-hidden shadow-inner border border-white/10 flex-shrink-0 flex items-center justify-center',
+              imageFit === 'contain' ? 'bg-[#0e1117]' : 'bg-black/30'
+            )}
+          >
+            <motion.div className='w-full h-full flex items-center justify-center' style={{ scale: imageScale }}>
               <img
                 src={url}
-                alt={title}
-                className='absolute inset-0 w-full h-full object-cover'
+                alt={imageAlt || title}
+                className={cn(
+                  'w-full h-full',
+                  imageFit === 'contain' ? 'object-contain' : 'object-cover'
+                )}
                 loading='lazy'
               />
             </motion.div>
@@ -176,6 +190,8 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(({ projects, class
               liveUrl={project.liveUrl}
               githubUrl={project.githubUrl}
               tags={project.tags}
+              imageAlt={project.imageAlt}
+              imageFit={project.imageFit}
             />
           );
         })}
